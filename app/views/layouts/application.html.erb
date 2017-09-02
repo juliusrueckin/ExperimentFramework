@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ExperimentFramework</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+  	<section id="page_wrapper">
+		<section id="nav_bar">
+			<%= render 'shared/menue' %>
+		</section>
+		<section id="header">
+			<h1>Experiment Framework</h1>
+		</section>
+		<section id="content">
+			<%= yield %>
+		</section>
+    </section>
+  </body>
+</html>

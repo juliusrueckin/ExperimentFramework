@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  project: one
+  algorithm: one
+  configuration: one
+  dataset: one
+
+two:
+  title: MyString
+  description: MyText
+  project: two
+  algorithm: two
+  configuration: two
+  dataset: two

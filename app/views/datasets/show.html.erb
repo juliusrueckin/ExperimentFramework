@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @dataset.title %></h2>
+
+<p>
+  <strong>Title:</strong>
+  <%= @dataset.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @dataset.description %>
+</p>
+
+<p>
+  <strong>File path:</strong>
+  <%= @dataset.file_path %>
+</p>
+
+<p>
+  <strong>File size:</strong>
+  <%= @dataset.file_size %>
+</p>
+
+<p>
+  <strong>Dimensions:</strong>
+  <%= @dataset.dimensions %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @dataset.size %>
+</p>
+
+<p>
+  <strong>Used in projects:</strong>
+  <%= @projects.join(',') %>
+</p>
+
+<p>
+  <%= link_to 'Download ' + @dataset.title, download_dataset_path(@dataset.id) %>
+</p>
+
+<p>
+  <%= link_to 'Edit', edit_dataset_path(@dataset) %> |
+  <%= link_to 'Back', datasets_path %>
+</p>

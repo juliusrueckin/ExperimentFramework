@@ -1,0 +1,47 @@
+<%= form_with(model: dataset, local: true) do |form| %>
+  <% if dataset.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(dataset.errors.count, "error") %> prohibited this dataset from being saved:</h2>
+
+      <ul>
+      <% dataset.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :dataset_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :dataset_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :blob, "Dataset file:" %>
+    <%= form.file_field :blob, id: :blob %>
+  </div>
+
+  <div class="field">
+    <%= form.label :file_size %>
+    <%= form.text_field :file_size, id: :dataset_file_size %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dimensions %>
+    <%= form.number_field :dimensions, id: :dataset_dimensions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :size %>
+    <%= form.number_field :size, id: :dataset_size %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

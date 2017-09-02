@@ -1,0 +1,47 @@
+<h2><%= @algorithm.title %></h2>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @algorithm.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @algorithm.description %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @algorithm.author %>
+</p>
+
+<p>
+  <strong>File path:</strong>
+  <%= @algorithm.file_path %>
+</p>
+
+<p>
+  <strong>Time complexity:</strong>
+  <%= @algorithm.time_complexity %>
+</p>
+
+<p>
+  <strong>Space complexity:</strong>
+  <%= @algorithm.space_complexity %>
+</p>
+
+<p>
+  <strong>Used in projects:</strong>
+  <%= @projects.join(',') %>
+</p>
+
+<p>
+  <%= link_to 'Download ' + @algorithm.title, download_algorithm_path(@algorithm.id) %>
+</p>
+
+<p>
+  <%= link_to 'Edit', edit_algorithm_path(@algorithm) %> |
+  <%= link_to 'Back', algorithms_path %>
+</p>

@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Configurations</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>File path</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @settings.each do |setting| %>
+      <tr>
+        <td><%= setting.title %></td>
+        <td><%= setting.description %></td>
+        <td><%= link_to '... ' + setting.file_path.split(//).last(60).join, download_setting_path(setting.id) %></td>
+        <td><%= link_to 'Show', setting %></td>
+        <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
+        <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to 'Upload Configuration', new_setting_path %> | 
+  <%= link_to 'Generate Configuration', generate_setting_path %>
+</p>

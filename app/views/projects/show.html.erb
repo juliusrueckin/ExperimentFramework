@@ -1,0 +1,102 @@
+<h2><%= @project.title %></h2>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @project.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @project.description %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @project.owner %>
+</p>
+
+<p>
+  <strong>Started at:</strong>
+  <%= @project.started_at %>
+</p>
+
+<p>
+  <strong>Finished at:</strong>
+  <%= @project.finished_at %>
+</p>
+
+<h3>Components</h3>
+
+<table id="projects_components">
+  <thead>
+    <th>Algorithms</th> 
+    <th>Configurations</th>
+    <th>Datasets</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <ul>
+          <% @algorithms.each do |algorithm| %>
+            <li>
+              <%= link_to algorithm.title, algorithm_path(algorithm.id) %>
+            </li>
+          <% end %>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <% @settings.each do |setting| %>
+            <li>
+              <%= link_to setting.title, setting_path(setting.id) %>
+            </li>
+          <% end %>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <% @datasets.each do |dataset| %>
+            <li>
+              <%= link_to dataset.title, dataset_path(dataset.id) %>
+            </li>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Project's Experiments</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Algorithm</th>
+      <th>Configuration</th>
+      <th>Dataset</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @experiments.each do |experiment| %>
+      <tr>
+        <td><%= experiment.title %></td>
+        <td><%= link_to experiment.algorithm.title, algorithm_path(experiment.algorithm.id) %></td>
+        <td><%= link_to experiment.setting.title, setting_path(experiment.setting.id) %></td>
+        <td><%= link_to experiment.dataset.title, dataset_path(experiment.dataset.id) %></td>
+        <td><%= link_to 'Show', experiment %></td>
+        <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
+        <td><%= link_to 'Destroy', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to 'Edit', edit_project_path(@project) %> |
+  <%= link_to 'Back', projects_path %>
+</p>

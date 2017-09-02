@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  author: MyString
+  file_path: MyString
+  time_complexity: MyString
+  space_complexity: MyString
+
+two:
+  title: MyString
+  description: MyText
+  author: MyString
+  file_path: MyString
+  time_complexity: MyString
+  space_complexity: MyString

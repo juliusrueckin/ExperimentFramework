@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @setting.title %></h2>
+
+<p>
+  <strong>Title:</strong>
+  <%= @setting.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @setting.description %>
+</p>
+
+<p>
+  <strong>File path:</strong>
+  <%= @setting.file_path %>
+</p>
+
+<p>
+  <strong>Used in projects:</strong>
+  <%= @projects.join(',') %>
+</p>
+
+<p>
+  <%= link_to 'Download ' + @setting.title, download_setting_path(@setting.id) %>
+</p>
+
+<p>
+	<%= link_to 'Edit', edit_setting_path(@setting) %> |
+	<%= link_to 'Back', settings_path %>
+</p>

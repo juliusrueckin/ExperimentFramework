@@ -1,0 +1,105 @@
+<h2>Generate Config-File</h2>
+
+<form action="<%= generate_config_file_path %>" methdod="post" id="createConfigForm">
+	<fieldset>
+		<legend>Configuration</legend>
+		<div class="field">
+			<label for="general_title">Configuration Title</label>
+			<input type="text" name="general_title" id="general_title" placeholder="Type in configuration's title">
+		</div>
+
+		<div class="field">
+			<label for="description">Description</label>
+			<textarea name="description" id="description" placeholder="Type in configuration's description"></textarea>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>General</legend>
+		<span class="field">
+			<label for="title">Experiment's Title</label>
+			<input type="text" name="title" id="title" placeholder="Type in experiment's title/topic">
+		</span>
+	</fieldset>
+	<fieldset>
+		<legend>Parameters</legend>
+		<span id="params_fields"></span>
+		<button type="button" class="add_field_button" id="add_param_field_button">Add parameter</button>
+	</fieldset>
+	<fieldset id="export_fields">
+		<legend>Export</legend>
+		<span class="field">
+			<label for="csvFilename">CSV-Filename</label>
+			<input id="csvFilename" type="text" name="csvFilename" placeholder="Type in filename of csv export file">
+		</span>
+		<span class="field">
+			<label for="csvFields">CSV-Fields</label>
+			<input id="csvFields" type="text" name="csvFields" placeholder="Type in csv fields (table columns, comma seperated), such as 'id, firstname, lastname, street, city'">
+		</span>
+	</fieldset>
+	<input type="button" class="add_field_button toggle_fields_button" id="export_fields_button" value="Remove CSV-Export" />
+	<fieldset>
+		<legend>Timeout</legend>
+		<span class="field">
+			<label for="defaultTimeout">Default Timeout</label>
+			<input id="defaultTimeout" type="text" name="defaultTimeout" placeholder="Type in time in seconds until when a single instance of a experiment series has to be terminated">
+		</span>
+		<span class="field">
+			<label for="outputPattern">Status Message Pattern</label>
+			<input id="outputPattern" type="text" name="outputPattern" placeholder="Type in alorithms status message pattern, such as Algorithm works fine!">
+		</span>
+		<span class="field">
+			<label for="maxTimeSinceLastStatusMsg">Status Message dependent Timout</label>
+			<input id="maxTimeSinceLastStatusMsg" type="text" name="maxTimeSinceLastStatusMsg" placeholder="Type in timespan in seconds in which an algorithm has to send defined status message again to be called alive">
+		</span>
+	</fieldset>
+	<div id="notifiers_fields">
+		<fieldset>
+			<legend>Slack-Notifier</legend>
+			<span class="field">
+				<label for="webhook_url">Webhook-URL</label>
+				<input id="webhook_url" type="text" name="webhook_url" placeholder="Paste in your personal slack webhook">
+			</span>
+			<span class="field">
+				<label for="icon">Bot-Chat-Icon</label>
+				<input id="icon" type="text" name="icon" placeholder="Such as ':golf:'">
+			</span>
+			<span class="field">
+				<label for="bot_name">Bot-Chat-Name</label>
+				<input id="bot_name" type="text" name="bot_name" placeholder="Type in bot's chat name">
+			</span>
+		</fieldset>
+		<fieldset>
+			<legend>Telegram-Notifier</legend>
+			<span class="field">
+				<label for="token">Token</label>
+				<input id="token" type="text" name="token" placeholder="Paste in your generated token for your created bot">
+			</span>
+			<span class="field">
+				<label for="chat_id">Chat ID</label>
+				<input id="chat_id" type="text" name="chat_id" placeholder="Paste in your telegram's chat id">
+			</span>
+		</fieldset>
+		<fieldset>
+			<legend>Mail-Notifier</legend>
+			<span class="field">
+				<label for="server">Server</label>
+				<input id="server" type="text" name="server" placeholder="Type in mail server, such as 'smtp.gmail.com'">
+			</span>
+			<span class="field">
+				<label for="user">User</label>
+				<input id="user" type="text" name="user" placeholder="Type in your mail server's username">
+			</span>
+			<span class="field">
+				<label for="password">Password</label>
+				<input id="password" type="password" name="password" placeholder="Type in your password related to given username">
+			</span>
+		</fieldset>
+	</div>
+	<input type="button" class="add_field_button toggle_fields_button" id="notifiers_fields_button" value="Use default notifier settings" />
+	<hr>
+	<input type="submit" value="Generate Config-JSON Files" />
+</form>
+<p>
+<%= link_to 'Back', settings_path %> |
+<%= link_to 'Upload configuration', new_setting_path %>
+</p>

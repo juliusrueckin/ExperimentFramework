@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @experiment.title %></h2>
+
+<p>
+  <strong>Title:</strong>
+  <%= @experiment.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @experiment.description %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= link_to @experiment.project.title, project_path(@experiment.project.id) %>
+</p>
+
+<p>
+  <strong>Algorithm:</strong>
+  <%= link_to @experiment.algorithm.title, algorithm_path(@experiment.algorithm.id) %>
+</p>
+
+<p>
+  <strong>Configuration:</strong>
+  <%= link_to @experiment.setting.title, setting_path(@experiment.setting.id) %>
+</p>
+
+<p>
+  <strong>Dataset:</strong>
+  <%= link_to @experiment.dataset.title, dataset_path(@experiment.dataset.id) %>
+</p>
+
+<p>
+  <%= link_to 'Edit', edit_experiment_path(@experiment) %> |
+  <%= link_to 'Back', experiments_path %>
+</p>
