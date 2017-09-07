@@ -41,12 +41,25 @@ gem 'jquery-datatables-rails', '~> 3.1.1'
 gem 'jquery-rails', '>= 3.0.0'
 gem 'jquery-ui-rails', '5.0.0'
 
+# Use bootstrap for cool user interfaces
+gem 'autoprefixer-rails'#
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+
+# Beautiful icons
+gem 'font-awesome-sass'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  # use testing gems
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'rb-fsevent'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
 end
 
 group :development do
