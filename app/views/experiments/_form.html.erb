@@ -11,37 +11,37 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title, id: :experiment_title %>
+    <%= form.text_field :title, id: :experiment_title, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description, id: :experiment_description %>
+    <%= form.text_area :description, id: :experiment_description, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :project_id %>
-    <%= form.select :project_id, options_from_collection_for_select(@projects, "id", "title"), include_blank: true %>
+    <%= form.select :project, options_from_collection_for_select(@algorithms, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :algorithm_id %>
-    <%= form.select :algorithm_id, options_from_collection_for_select(@algorithms, "id", "title"), include_blank: true %>
+    <%= form.select :algorithm_id, options_from_collection_for_select(@algorithms, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :setting_id %>
-    <%= form.select :setting_id, options_from_collection_for_select(@settings, "id", "title"), include_blank: true %>
+    <%= form.select :setting_id, options_from_collection_for_select(@algorithms, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :dataset_id %>
-    <%= form.select :dataset_id, options_from_collection_for_select(@datasets, "id", "title"), include_blank: true %>
+    <%= form.select :dataset_id, options_from_collection_for_select(@algorithms, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

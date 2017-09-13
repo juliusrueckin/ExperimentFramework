@@ -1,6 +1,12 @@
-<h2><%= @project.title %></h2>
-
 <p id="notice"><%= notice %></p>
+
+<h1>
+  <%= @project.title %>
+  <small>
+    <%= link_to " | edit", edit_project_path(@project.id) %>
+    <%= link_to " | destroy", @project, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </small>  
+</h1>
 
 <p>
   <strong>Title:</strong>
@@ -27,50 +33,48 @@
   <%= @project.finished_at %>
 </p>
 
-<h3>Components</h3>
+<h2>Project's Components</h2>
+<div style="display: flex;">
+  <ul class="list-group" style="flex:1;">
+    <li class="list-group-item active">
+      <strong>
+        Algorithms
+      </strong>
+    </li>
+    <% @algorithms.each do |algorithm| %>
+      <li>
+        <%= link_to algorithm.title, algorithm_path(algorithm.id), class: "list-group-item" %>
+      </li>
+    <% end %>
+  </ul>
+  <ul class="list-group" style="flex:1; margin: 0px 20px;">
+    <li class="list-group-item active">
+      <strong>
+        Configurations
+      </strong>
+    </li>
+    <% @settings.each do |setting| %>
+      <li>
+        <%= link_to setting.title, setting_path(setting.id), class: "list-group-item" %>
+      </li>
+    <% end %>
+  </ul>
+  <ul class="list-group" style="flex:1;">
+    <li class="list-group-item active">
+      <strong>
+        Datasets
+      </strong>
+    </li>
+    <% @datasets.each do |dataset| %>
+      <li>
+        <%= link_to dataset.title, dataset_path(dataset.id), class: "list-group-item" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
-<table id="projects_components">
-  <thead>
-    <th>Algorithms</th> 
-    <th>Configurations</th>
-    <th>Datasets</th>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <ul>
-          <% @algorithms.each do |algorithm| %>
-            <li>
-              <%= link_to algorithm.title, algorithm_path(algorithm.id) %>
-            </li>
-          <% end %>
-        </ul>
-      </td>
-      <td>
-        <ul>
-          <% @settings.each do |setting| %>
-            <li>
-              <%= link_to setting.title, setting_path(setting.id) %>
-            </li>
-          <% end %>
-        </ul>
-      </td>
-      <td>
-        <ul>
-          <% @datasets.each do |dataset| %>
-            <li>
-              <%= link_to dataset.title, dataset_path(dataset.id) %>
-            </li>
-          <% end %>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>Project's Experiments</h3>
-
-<table>
+<h2>Project's Experiments</h2>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
@@ -97,6 +101,5 @@
 </table>
 
 <p>
-  <%= link_to 'Edit', edit_project_path(@project) %> |
   <%= link_to 'Back', projects_path %>
 </p>

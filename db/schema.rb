@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708150201) do
+ActiveRecord::Schema.define(version: 20170911225827) do
 
   create_table "algorithms", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "author"
-    t.string "file_path"
     t.string "time_complexity"
     t.string "space_complexity"
     t.datetime "created_at", null: false
@@ -73,6 +72,26 @@ ActiveRecord::Schema.define(version: 20170708150201) do
     t.string "file_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subscript_dependencies", force: :cascade do |t|
+    t.integer "parent_script_id"
+    t.integer "child_script_id"
+    t.integer "algorithm_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscripts", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "author"
+    t.string "file_path"
+    t.string "filename"
+    t.integer "algorithm_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status"
   end
 
 end

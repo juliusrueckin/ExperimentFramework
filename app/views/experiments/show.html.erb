@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @experiment.title %></h2>
+<h1>
+  <%= @experiment.title %>
+  <small>
+    <%= link_to ' | edit', edit_experiment_path(@experiment) %>
+    <%= link_to ' | destroy', @experiment, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </small>
+</h1>
 
 <p>
   <strong>Title:</strong>
@@ -14,25 +20,40 @@
 
 <p>
   <strong>Project:</strong>
-  <%= link_to @experiment.project.title, project_path(@experiment.project.id) %>
+  <ul class="list-group">
+    <li>
+      <%= link_to @experiment.project.title, project_path(@experiment.project.id), class: "list-group-item" %>
+    </li>
+  </ul>
 </p>
 
 <p>
   <strong>Algorithm:</strong>
-  <%= link_to @experiment.algorithm.title, algorithm_path(@experiment.algorithm.id) %>
+  <ul class="list-group">
+    <li>
+      <%= link_to @experiment.algorithm.title, algorithm_path(@experiment.algorithm.id), class: "list-group-item" %>
+    </li>
+  </ul>
 </p>
 
 <p>
   <strong>Configuration:</strong>
-  <%= link_to @experiment.setting.title, setting_path(@experiment.setting.id) %>
+  <ul class="list-group">
+    <li>
+      <%= link_to @experiment.setting.title, setting_path(@experiment.setting.id), class: "list-group-item" %>
+    </li>
+  </ul>
 </p>
 
 <p>
   <strong>Dataset:</strong>
-  <%= link_to @experiment.dataset.title, dataset_path(@experiment.dataset.id) %>
+  <ul class="list-group">
+    <li>
+      <%= link_to @experiment.dataset.title, dataset_path(@experiment.dataset.id), class: "list-group-item" %>
+    </li>
+  </ul>
 </p>
 
 <p>
-  <%= link_to 'Edit', edit_experiment_path(@experiment) %> |
   <%= link_to 'Back', experiments_path %>
 </p>

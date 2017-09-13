@@ -1,13 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h2>Datasets</h2>
+<h1>
+  Datasets
+  <small>
+    <%= link_to " | add new", new_dataset_path %>
+  </small>
+</h1>
 
-<table>
+<table  class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
       <th>Description</th>
-      <th>File path</th>
+      <th>Filename</th>
       <th>File size</th>
       <th>Dimensions</th>
       <th>Size</th>
@@ -20,7 +25,7 @@
       <tr>
         <td><%= dataset.title %></td>
         <td><%= dataset.description %></td>
-        <td><%= link_to '... ' + dataset.file_path.split(//).last(60).join, download_dataset_path(dataset.id) %></td>
+        <td><%= link_to dataset.file_path.split("/uploads/")[1], download_dataset_path(dataset.id) %></td>
         <td><%= dataset.file_size %></td>
         <td><%= dataset.dimensions %></td>
         <td><%= dataset.size %></td>
@@ -31,7 +36,3 @@
     <% end %>
   </tbody>
 </table>
-
-<p>
-  <%= link_to 'New Dataset', new_dataset_path %>
-</p>

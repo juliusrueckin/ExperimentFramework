@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h2>Experiments</h2>
+<h1>
+  Experiments
+  <small>
+    <%= link_to ' | add new', new_experiment_path %>
+  </small>
+</h1>
 
-<table>
+<table  class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
@@ -29,7 +34,3 @@
     <% end %>
   </tbody>
 </table>
-
-<p>
-  <%= link_to 'New Experiment', new_experiment_path %>
-</p>

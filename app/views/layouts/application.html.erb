@@ -4,19 +4,15 @@
     <title>ExperimentFramework</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+    <%= render 'shared/menue' %>
   	<section id="page_wrapper">
-		<section id="nav_bar">
-			<%= render 'shared/menue' %>
-		</section>
-		<section id="header">
-			<h1>Experiment Framework</h1>
-		</section>
-		<section id="content">
-			<%= yield %>
-		</section>
+  		<section id="content">
+  			<%= yield %>
+  		</section>
     </section>
   </body>
 </html>

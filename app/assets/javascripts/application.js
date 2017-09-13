@@ -24,6 +24,14 @@ var useNotifierDefaults = false;
 
 $(document).ready(function(){
 
+	$("table tbody tr").on("mouseover", function(){
+		$(this).addClass('active');
+	});
+
+	$("table tbody tr").on("mouseout", function(){
+		$(this).removeClass('active');
+	});
+
 	$("body").delegate("#export_fields_button", "click", function(){
 		toggleExportFields();
 	});
@@ -79,39 +87,6 @@ $(document).ready(function(){
 			
 		});
 
-		/*
-		extractTimeoutProperties(conf);
-
-		if(!useNotifierDefaults){
-			extractSlackNotifier(conf);
-			extractTelegramNotifier(conf);
-			extractMailNotifier(conf);
-		}
-
-		if(!useNotifierDefaults){
-			$.post("/generate_config_files",{basic_conf_obj: JSON.stringify(conf), timeout_conf_obj: JSON.stringify(timeoutConf), slack_notifier_conf_obj: JSON.stringify(slackNotifierConf), mail_notifier_conf_obj: JSON.stringify(mailNotifierConf), telegram_notifier_conf_obj: JSON.stringify(telegramNotifierConf)},function(data){
-				alert(data);
-			});
-		}
-		else{
-			$.post("/generate_config_files",{basic_conf_obj: JSON.stringify(conf), timeout_conf_obj: JSON.stringify(timeoutConf), slack_notifier_conf_obj: null, mail_notifier_conf_obj: null, telegram_notifier_conf_obj: null},function(data){
-				alert(data);
-			});
-		}	
-
-		var url = 'data:application/json;charset=utf8,' + encodeURIComponent(JSON.stringify(conf));
-		window.open(url, '_blank');
-
-		if(!useNotifierDefaults){
-			var url = 'data:application/json;charset=utf8,' + encodeURIComponent(JSON.stringify(mailNotifierConf));
-			window.open(url, '_blank');
-
-			var url = 'data:application/json;charset=utf8,' + encodeURIComponent(JSON.stringify(telegramNotifierConf));
-			window.open(url, '_blank');
-			
-			var url = 'data:application/json;charset=utf8,' + encodeURIComponent(JSON.stringify(slackNotifierConf));
-			window.open(url, '_blank');
-		}*/
 	});
 });
 

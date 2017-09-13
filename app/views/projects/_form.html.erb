@@ -11,32 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title, id: :project_title %>
+    <%= form.text_field :title, id: :project_title, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description, id: :project_description %>
+    <%= form.text_area :description, id: :project_description, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :owner %>
-    <%= form.text_field :owner, id: :project_owner %>
+    <%= form.text_field :owner, id: :project_owner, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :started_at %>
-    <%= form.date_field :started_at, id: :project_started_at %>
+    <%= form.date_field :started_at, id: :project_started_at, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :finished_at %>
-    <%= form.date_field :finished_at, id: :project_finished_at %>
+    <%= form.date_field :finished_at, id: :project_finished_at, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Save", class:"btn btn-primary" %>
   </div>
 <% end %>

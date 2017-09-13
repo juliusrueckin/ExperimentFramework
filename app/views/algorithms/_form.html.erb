@@ -11,37 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title, id: :algorithm_title %>
+    <%= form.text_field :title, id: :algorithm_title, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description, id: :algorithm_description %>
+    <%= form.text_area :description, id: :algorithm_description, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :author %>
-    <%= form.text_field :author, id: :algorithm_author %>
+    <%= form.text_field :author, id: :algorithm_author, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :blob, "Algorithm file:" %>
-    <%= form.file_field :blob, id: :blob %>
-  </div>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :time_complexity %>
-    <%= form.text_field :time_complexity, id: :algorithm_time_complexity %>
+    <%= form.text_field :time_complexity, id: :algorithm_time_complexity, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :space_complexity %>
-    <%= form.text_field :space_complexity, id: :algorithm_space_complexity %>
+    <%= form.text_field :space_complexity, id: :algorithm_space_complexity, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Save", class:"btn btn-primary" %>
   </div>
 <% end %>

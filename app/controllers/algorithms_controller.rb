@@ -10,16 +10,7 @@ class AlgorithmsController < ApplicationController
   # GET /algorithms/1
   # GET /algorithms/1.json
   def show
-    @projects = @algorithm.experiments.collect { |experiment| experiment.project.title }.uniq
-  end
-
-  def download_algorithm
-    algorithm = Algorithm.find_by_id(params[:id])
-    if !algorithm.nil?
-      send_file algorithm.file_path, disposition: 'inline'
-    else
-      redirect_to algorithms_path
-    end
+    @projects = @algorithm.experiments.collect { |experiment| experiment.project }.uniq
   end
 
   # GET /algorithms/new
@@ -71,6 +62,28 @@ class AlgorithmsController < ApplicationController
     end
   end
 
+  # POST /get_algorithm_subscripts
+  # params: id -> algorithm's primary key
+  def get_algorithm_subscripts
+    algorithm = Algorithm.find(params[:id])
+    jsonOutput = algorithm.subscripts.each_with_object([]) { |script, array| array << script.buildJSONNode }
+    
+    respond_to do |format|
+      format.json { render json: jsonOutput }
+    end
+  end
+
+  # POST /get_algorithm_subscript_dependencies
+  # params: id -> algorithm's primary key
+  def get_algorithm_subscript_dependencies
+    algorithm = Algorithm.find(params[:id])
+    jsonOutput = algorithm.subscript_dependencies.where("parent_script_id NOT NULL AND child_script_id NOT NULL").each_with_object([]) { |dependency, array| array << dependency.buildJSONLink }
+    
+    respond_to do |format|
+      format.json { render json: jsonOutput }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_algorithm
@@ -79,6 +92,6 @@ class AlgorithmsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def algorithm_params
-      params.require(:algorithm).permit(:title, :description, :author, :blob, :time_complexity, :space_complexity)
+      params.require(:algorithm).permit(:title, :description, :author, :time_complexity, :space_complexity)
     end
 end

@@ -10,7 +10,7 @@ class DatasetsController < ApplicationController
   # GET /datasets/1
   # GET /datasets/1.json
   def show
-    @projects = @dataset.experiments.collect { |experiment| experiment.project.title }.uniq
+    @projects = @dataset.experiments.collect { |experiment| experiment.project }.uniq
   end
 
   def download_dataset

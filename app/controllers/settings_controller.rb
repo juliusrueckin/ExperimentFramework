@@ -10,7 +10,7 @@ class SettingsController < ApplicationController
   # GET /settings/1
   # GET /settings/1.json
   def show
-    @projects = @setting.experiments.collect { |experiment| experiment.project.title }.uniq
+    @projects = @setting.experiments.collect { |experiment| experiment.project }.uniq
   end
 
   #GET /download_setting

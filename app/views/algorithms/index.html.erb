@@ -1,13 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<h2>Algorithms</h2>
+<h1>
+  Algorithms
+  <small>
+    <%= link_to ' | add new', new_algorithm_path %>
+  </small>
+</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
       <th>Author</th>
-      <th>File path</th>
       <th>Time complexity</th>
       <th>Space complexity</th>
       <th colspan="3"></th>
@@ -19,7 +23,6 @@
       <tr>
         <td><%= algorithm.title %></td>
         <td><%= algorithm.author %></td>
-        <td><%= link_to '... ' + algorithm.file_path.split(//).last(60).join, download_algorithm_path(algorithm.id) %></td>
         <td><%= algorithm.time_complexity %></td>
         <td><%= algorithm.space_complexity %></td>
         <td><%= link_to 'Show', algorithm %></td>
@@ -29,7 +32,3 @@
     <% end %>
   </tbody>
 </table>
-
-<p>
-  <%= link_to 'New Algorithm', new_algorithm_path %>
-</p>

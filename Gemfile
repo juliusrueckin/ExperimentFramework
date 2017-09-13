@@ -43,10 +43,13 @@ gem 'jquery-ui-rails', '5.0.0'
 
 # Use bootstrap for cool user interfaces
 gem 'autoprefixer-rails'#
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'bootstrap-sass'
 
 # Beautiful icons
 gem 'font-awesome-sass'
+
+# draw graphs
+gem 'graph'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -54,12 +57,6 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  # use testing gems
-  gem 'rspec-rails'
-  gem 'guard-rspec'
-  gem 'rb-fsevent'
-  gem 'database_cleaner'
-  gem 'factory_girl_rails'
 end
 
 group :development do

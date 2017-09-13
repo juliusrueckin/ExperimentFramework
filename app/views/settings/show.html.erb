@@ -1,6 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @setting.title %></h2>
+<h1>
+  <%= @setting.title %>
+  <small>
+    <%= link_to ' | download', download_setting_path(@setting.id), target: "_blank" %>
+    <%= link_to ' | edit', edit_setting_path(@setting) %>
+    <%= link_to ' | destroy', @setting, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </small>
+</h1>
 
 <p>
   <strong>Title:</strong>
@@ -13,17 +20,19 @@
 </p>
 
 <p>
-  <strong>File path:</strong>
-  <%= @setting.file_path %>
+  <strong>Filename:</strong>
+  <%= @setting.file_path.split("/uploads/")[1] %>
 </p>
 
 <p>
   <strong>Used in projects:</strong>
-  <%= @projects.join(',') %>
-</p>
-
-<p>
-  <%= link_to 'Download ' + @setting.title, download_setting_path(@setting.id) %>
+  <ul class="list-group">
+    <% @projects.each do |project| %>
+      <li>
+        <%= link_to project.title, project_path(project.id), class: "list-group-item" %>
+      </li>
+    <% end %>
+  </ul>
 </p>
 
 <p>

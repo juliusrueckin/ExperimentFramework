@@ -78,10 +78,22 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+a:hover{
+	text-decoration: none;
+	color: black;
+}
 
 /* own css */
 
+/* basic structure design */
+
+#page_wrapper{
+	width: 90%;
+	margin: 0 auto;
+}
+
 /* top menue bar */
+
 .navbar-brand{
 	margin: 0;
 	padding: 0;
@@ -99,4 +111,78 @@ table {
 .navbar-inverse .navbar-nav li .active:hover {
 	background: #080808;
 	color: white;
+}
+
+/* basic font style */
+h1{
+	font-size: 30px;
+	margin: 20px 0px;
+	padding: 0;
+}
+
+h1 small{
+	font-size: 20px;
+}
+
+h2{
+	font-size: 24px;
+	margin: 10px 0px;
+	padding: 0;
+}
+
+h1 small{
+	font-size: 16px;
+}
+
+p{
+	margin: 20px 0px;
+}
+
+strong{
+	font-weight: bold;
+}
+
+/* basic form style */
+
+form label{
+	font-weight: bold;
+	margin-bottom: 7px;
+}
+
+/* basic list style */
+
+.list-group-item:first-child{
+}
+
+/* basic list desgin */
+.list-group-item:hover{
+	background: #eee;
+}
+
+/* basic DAG style of an algo */
+
+#graph{
+	border: 1px solid #ddd;
+	width: 800px;
+	height: 600px;
+	margin: 30px 0px;
+	border-radius: 5px;
+}
+
+.link {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+circle {
+  fill: #aaa;
+  stroke: #aaa;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }

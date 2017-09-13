@@ -11,37 +11,49 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title, id: :dataset_title %>
+    <%= form.text_field :title, id: :dataset_title, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description, id: :dataset_description %>
+    <%= form.text_area :description, id: :dataset_description, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :blob, "Dataset file:" %>
-    <%= form.file_field :blob, id: :blob %>
+  <div class="form-group">
+    <%= form.label :blob, "Dataset file" %>
+    <div class="input-group">
+      <span class="input-group-btn">
+        <span class="btn btn-small btn-primary btn-inverse" onclick="$(this).parent().find('input[type=file]').click();">Browse</span>
+          <%= form.file_field :blob, onchange: "$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\\\|/]/).pop());", style: "display: none;" %>
+          </span>
+        <span class="form-control">
+        <% if @dataset.file_path.blank? %>
+          Please upload a dataset file.
+        <% else %>
+          <%= @dataset.file_path.split("/uploads/")[1] %>
+        <% end %>
+      </span>
+    </div>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :file_size %>
-    <%= form.text_field :file_size, id: :dataset_file_size %>
+    <%= form.text_field :file_size, id: :dataset_file_size, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :dimensions %>
-    <%= form.number_field :dimensions, id: :dataset_dimensions %>
+    <%= form.number_field :dimensions, id: :dataset_dimensions, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :size %>
-    <%= form.number_field :size, id: :dataset_size %>
+    <%= form.number_field :size, id: :dataset_size, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Save", class:"btn btn-primary" %>
   </div>
 <% end %>

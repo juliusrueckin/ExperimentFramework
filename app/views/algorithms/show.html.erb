@@ -1,6 +1,14 @@
-<h2><%= @algorithm.title %></h2>
+<h1>
+  <%= @algorithm.title %>
+  <small>
+    <%= link_to ' | edit', edit_algorithm_path(@algorithm) %>
+    <%= link_to ' | destroy', @algorithm, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </small>
+</h1>
 
 <p id="notice"><%= notice %></p>
+
+<h2>Basic Information</h2>
 
 <p>
   <strong>Title:</strong>
@@ -18,11 +26,6 @@
 </p>
 
 <p>
-  <strong>File path:</strong>
-  <%= @algorithm.file_path %>
-</p>
-
-<p>
   <strong>Time complexity:</strong>
   <%= @algorithm.time_complexity %>
 </p>
@@ -34,14 +37,180 @@
 
 <p>
   <strong>Used in projects:</strong>
-  <%= @projects.join(',') %>
+  <ul class="list-group">
+    <% @projects.each do |project| %>
+      <li>
+        <%= link_to project.title, project_path(project.id), class:"list-group-item" %>
+      </li>
+    <% end %>
+  </ul>
 </p>
 
-<p>
-  <%= link_to 'Download ' + @algorithm.title, download_algorithm_path(@algorithm.id) %>
-</p>
+<div class="row col-xs-12">
 
-<p>
-  <%= link_to 'Edit', edit_algorithm_path(@algorithm) %> |
-  <%= link_to 'Back', algorithms_path %>
-</p>
+  <div class="col-xs-3">
+
+    <h2 style="margin-bottom: 30px;"">Current Key Figures</h2>
+
+    <ul class="list-group">
+      <li class="list-group-item active">
+        <strong>General</strong>
+      </li>
+      <li class="list-group-item">
+        Finished
+        <span class="label <%= @algorithm.finished? ? 'label-success' : 'label-danger' %> pull-right">
+          <%= @algorithm.finished? ? "Yes" : "No" %>
+        </span>
+      </li>
+      <li class="list-group-item">
+        Successfully finished
+        <span class="label <%= @algorithm.finishedSuccessfully? ? 'label-success' : 'label-danger' %> pull-right">
+          <%= @algorithm.finishedSuccessfully? ? "Yes" : "No" %>
+        </span>
+      </li>
+      <li class="list-group-item">
+        Pending
+        <span class="label <%= !@algorithm.pending? ? 'label-success' : 'label-danger' %> pull-right">
+          <%= @algorithm.pending? ? "Yes" : "No" %>
+        </span>
+      </li>
+      <li class="list-group-item">
+        Partially failed
+        <span class="label <%= !@algorithm.failedInParts? ? 'label-success' : 'label-danger' %> pull-right">
+          <%= @algorithm.failedInParts? ? "Yes" : "No" %>
+        </span>
+      </li>
+      <li class="list-group-item active">
+        <strong>Subscripts</strong>
+      </li>
+      <li class="list-group-item">
+        Total
+        <span class="label label-default pull-right">
+          <%= @algorithm.amoutOfSubscripts %>
+        </span>
+      </li>
+      <li class="list-group-item">
+        Succeeded
+        <span class="label label-default pull-right">
+          <%= @algorithm.amoutOfSucceededSubscripts %>
+        </span>
+      </li>
+      <li class="list-group-item">
+        Failed
+        <span class="label <%= @algorithm.amoutOfFailedSubscripts <= 0 ? 'label-success' : 'label-danger' %> pull-right">
+          <%= @algorithm.amoutOfFailedSubscripts %>
+        </span>
+      </li>
+      <li class="list-group-item">
+        Pending
+        <span class="label <%= @algorithm.amountOfPendingSubscripts <= 0 ? 'label-success' : 'label-danger' %> pull-right">
+          <%= @algorithm.amountOfPendingSubscripts %>
+        </span>
+      </li>
+      <li class="list-group-item">
+        Running
+        <span class="label <%= @algorithm.amoutOfRunningSubscripts <= 0 ? 'label-success' : 'label-danger' %> pull-right">
+          <%= @algorithm.amoutOfRunningSubscripts %>
+        </span>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="col-xs-9">
+
+    <h2>Dependecy Tree</h2>
+    <div id="graph"></div>
+
+  </div>
+
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    var nodes = [
+      {name: "Read Data", x: 300, y: 100},
+      {name: "Preprocessing 1", x: 100, y: 200},
+      {name: "Preprocessing 2", x: 500, y: 200},
+      {name: "Classifier 1", x: 100, y: 300},
+      {name: "Classifier 2", x: 500, y: 300},
+      {name: "Evaluation", x: 300, y: 400},
+      {name: "Save Results", x: 300, y: 500}
+    ];
+
+    var links = [
+      {source: nodes[0], target: nodes[1]},
+      {source: nodes[0], target: nodes[2]},
+      {source: nodes[1], target: nodes[3]},
+      {source: nodes[2], target: nodes[3]},
+      {source: nodes[1], target: nodes[4]},
+      {source: nodes[2], target: nodes[4]},
+      {source: nodes[3], target: nodes[5]},
+      {source: nodes[4], target: nodes[5]},
+      {source: nodes[5], target: nodes[6]}
+    ];
+
+    $.post("/get_algorithm_subscripts",{id: <%= @algorithm.id %>}, function(scriptsData){
+      nodes = scriptsData;
+      $.post("/get_algorithm_subscript_dependencies",{id: <%= @algorithm.id %>},
+        function(dependenciesData){
+          links = dependenciesData;
+          initializeGraph();
+        });
+    });
+
+    function initializeGraph(){
+      /*links.forEach(function(d){
+        alert("Von --" + d.source.name + "-- nach --" + d.target.name);
+      });*/
+
+      /*nodes.forEach(function(d) { //iterate through the nodes
+        if(d.parent != null){ //if the node has a parent
+          for(var i = 0; i < d.parent.children.length; i++){ //check parent children
+            if(d.parent.children[i].name == d.name){ //find current node
+              d.downset = i; //index is how far node must be moved down
+            }
+          }
+          d.parentDownset = d.parent.downset; //must also account for parent downset
+        }
+        if(d.downset == null){ d.downset = 0; }
+        if(d.parentDownset == null){ d.parentDownset = 0; }
+        d.x = (d.downset * 40) + (d.parentDownset * 40) + 20;
+        d.y = d.depth * 180;
+      });*/
+
+      var width = 800,
+          height = 600;
+
+      var svg = d3.select("#graph").append("svg").attr("width", width).attr("height", height);
+
+      var node = svg.selectAll("rect .nodes")
+      .data(nodes)
+      .enter()
+      .append("svg:rect")
+      .attr("class", "nodes")
+      .attr("x", function(d) { return d.x; })
+      .attr("y", function(d) { return d.y; })
+      .attr("width", "150px")
+      .attr("height","50px")
+      .attr("fill", "lightgray");
+
+      node.selectAll(".nodes")
+      .append("text")
+      .attr("x", 12)
+      .attr("dy", ".35em")
+      .text(function(d) { return d.name; });
+
+      svg.selectAll(".line")
+      .data(links)
+      .enter()
+      .append("line")
+      .attr("x1", function(d) { return d.source.x + 75 })
+      .attr("y1", function(d) { return d.source.y + 25 })
+      .attr("x2", function(d) { return d.target.x + 75 })
+      .attr("y2", function(d) { return d.target.y + 25 })
+      .style("stroke", "rgb(6,120,155)");
+    }
+
+  });
+</script>
