@@ -6,7 +6,9 @@
   </small>
 </h1>
 
-<p id="notice" class="alert alert-success"><%= notice %></p>
+<% if !notice.blank? %>
+  <p id="notice" class="alert alert-success"><%= notice %></p>
+<% end %>
 
 <h2>Basic Information</h2>
 
@@ -113,7 +115,7 @@
     <%= render 'subscript_dependencies/form', subscript_dependency: @subscriptDependency %>
   </div>
 
-<div class="row col-xs-12" style="margin-top: 20px;">
+<div class="row col-xs-12" style="margin-top: 20px; margin-bottom: 30px;">
 
   <div style="padding-left: 0;" class="col-xs-3">
 

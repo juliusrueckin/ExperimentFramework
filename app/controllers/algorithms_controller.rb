@@ -31,14 +31,11 @@ class AlgorithmsController < ApplicationController
   def create
     @algorithm = Algorithm.new(algorithm_params)
 
-    respond_to do |format|
-      if @algorithm.save
-        format.html { redirect_to @algorithm, notice: 'Algorithm was successfully created.' }
-        format.json { render :show, status: :created, location: @algorithm }
-      else
-        format.html { render :new }
-        format.json { render json: @algorithm.errors, status: :unprocessable_entity }
-      end
+    if @algorithm.save
+      redirect_to @algorithm, notice: 'Algorithm was successfully created.'
+    else
+      format.html { render :new }
+      format.json { render json: @algorithm.errors, status: :unprocessable_entity }
     end
   end
 

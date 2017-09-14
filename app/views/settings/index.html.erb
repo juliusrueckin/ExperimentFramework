@@ -1,11 +1,13 @@
-<p id="notice"><%= notice %></p>
-
 <h1>
   Configurations
   <small>
     <%= link_to ' | upload new', new_setting_path %><%= link_to ' | generate new', generate_setting_path %>
   </small>
 </h1>
+
+<% if !notice.blank? %>
+  <p id="notice" class="alert alert-success"><%= notice %></p>
+<% end %>
 
 <table  class="table table-striped">
   <thead>

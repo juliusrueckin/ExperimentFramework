@@ -1,10 +1,12 @@
-<p id="notice"><%= notice %></p>
-
 <h1>
   Projects
   <small>
     <%= link_to ' | add new', new_project_path %>
 </h1>
+
+<% if !notice.blank? %>
+  <p id="notice" class="alert alert-success"><%= notice %></p>
+<% end %>
 
 <table  class="table table-striped">
   <thead>
