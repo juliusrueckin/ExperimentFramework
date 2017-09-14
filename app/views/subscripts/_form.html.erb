@@ -1,0 +1,49 @@
+<%= form_with(model: subscript, local: true) do |form| %>
+  <% if subscript.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(subscript.errors.count, "error") %> prohibited this subscript from being saved:</h2>
+
+      <ul>
+      <% subscript.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.hidden_field :algorithm_id, id: :subscript_algorithm_id, value: subscript.algorithm_id %>
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :subscript_title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :author %>
+    <%= form.text_field :author, id: :subscript_author, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :subscript_description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :blob, "Script file" %>
+    <div class="input-group">
+      <span class="input-group-btn">
+        <span class="btn btn-small btn-primary btn-inverse" onclick="$(this).parent().find('input[type=file]').click();">Browse</span>
+          <%= form.file_field :blob, onchange: "$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\\\|/]/).pop());", style: "display: none;" %>
+          </span>
+        <span class="form-control">
+          <% if subscript.filename.nil? %>
+            Please upload a script.
+          <% else %>
+            <%= subscript.filename %>
+          <% end %>
+      </span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Save", class:"btn btn-primary" %>
+  </div>
+<% end %>
