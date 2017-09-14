@@ -13,6 +13,8 @@ class AlgorithmsController < ApplicationController
     @projects = @algorithm.experiments.collect { |experiment| experiment.project }.uniq
     @subscript = Subscript.new(algorithm_id: @algorithm.id)
     @subscripts = @algorithm.subscripts
+    @subscriptDependencies = @algorithm.subscript_dependencies.where("parent_script_id NOT NULL AND child_script_id NOT NULL")
+    @subscriptDependency = SubscriptDependency.new(algorithm_id: @algorithm.id)
   end
 
   # GET /algorithms/new

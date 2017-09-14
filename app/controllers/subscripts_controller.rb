@@ -19,6 +19,10 @@ class SubscriptsController < ApplicationController
 	    redirect_to @subscript.algorithm, notice: 'Subscript was successfully created.'
 	end
 
+	def edit
+
+	end
+
 	def update
       if @subscript.update(subscript_params)
         redirect_to @subscript.algorithm, notice: 'Subscript was successfully updated.'

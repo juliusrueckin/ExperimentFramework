@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 	resources :algorithms
 	resources :projects
 
-	resources :subscript_dependencies, only: [:create, :update, :destroy]
+	resources :subscript_dependencies, only: [:create, :edit, :update, :destroy]
 	resources :subscripts, only: [:create, :edit, :update, :destroy]
 
 	# define download links for configs, algos and datasets

@@ -6,7 +6,7 @@
   </small>
 </h1>
 
-<p id="notice"><%= notice %></p>
+<p id="notice" class="alert alert-success"><%= notice %></p>
 
 <h2>Basic Information</h2>
 
@@ -46,9 +46,9 @@
   </ul>
 </p>
 
-<div style="margin-bottom: 20px;" class="row col-xs-12">
+<div style="margin-top: 20px;" class="row col-xs-12">
 
-  <div class="col-xs-6" style="padding-left: 0;">
+  <div class="col-xs-6" style="padding-left: 0; border-right: 1px solid #aaa;"">
     <h2>Algorithm's suscripts</h2>
     <table  class="table table-striped">
       <thead>
@@ -74,14 +74,46 @@
     </table>
   </div>
 
-  <div class="col-xs-6" style="border-left: 1px solid #aaa;">
-    <h2 style="margin-bottom: 20px;">Upload new Subscript component</h2>
+  <div class="col-xs-6">
+    <h2 style="margin-bottom: 20px;">Upload new Subscript</h2>
     <%= render 'subscripts/form', subscript: @subscript %>
   </div>
 
 </div>
 
-<div class="row col-xs-12">
+<div class="row col-xs-12" style="margin-top: 50px;">
+
+  <div class="col-xs-6" style="padding-left: 0; border-right: 1px solid #aaa;">
+    <h2>Algorithm's Subscript Dependency</h2>
+
+    <table  class="table table-striped">
+      <thead>
+        <tr>
+          <th>Parent Script</th>
+          <th>Child Script</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @subscriptDependencies.each do |dependency| %>
+          <tr>
+            <td><%= dependency.parent_script.title %></td>
+            <td><%= dependency.child_script.title %></td>
+            <td><%= link_to 'Edit', edit_subscript_dependency_path(dependency) %></td>
+            <td><%= link_to 'Destroy', dependency, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-xs-6">
+    <h2 style="margin-bottom: 20px;">Add new Dependency</h2>
+    <%= render 'subscript_dependencies/form', subscript_dependency: @subscriptDependency %>
+  </div>
+
+<div class="row col-xs-12" style="margin-top: 20px;">
 
   <div style="padding-left: 0;" class="col-xs-3">
 
@@ -153,13 +185,15 @@
   </div>
 
   <div class="col-xs-9" style="border-left: 1px solid #aaa;">
-    <h2>Dependecy Tree</h2>
+    <h2>Dependency Tree</h2>
     <div id="graph"></div>
   </div>
 
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
+
+    /* Testing data */
 
     var nodes = [
       {name: "Read Data", x: 300, y: 100},
@@ -183,16 +217,20 @@
       {source: nodes[5], target: nodes[6]}
     ];
 
+    /* Testing data will be overwriten here by requesting current dependencies between subscript*/
+
     $.post("/get_algorithm_subscript_dependencies",{id: <%= @algorithm.id %>},
       function(dependenciesData){
         links = dependenciesData;
         initializeGraph();
     });
 
+    /* draw graph after successful json repsonse, which contains links data */
+
     function initializeGraph(){
       var nodes = {};
 
-      // Compute the distinct nodes from the links.
+      // Compute the distinct nodes from the links
       links.forEach(function(link) {
         link.source = nodes[link.source.name] || (nodes[link.source.name] = {name: link.source.name});
         link.target = nodes[link.target.name] || (nodes[link.target.name] = {name: link.target.name});
@@ -204,7 +242,7 @@
       .nodes(d3.values(nodes))
       .links(links)
       .size([width, height])
-      .linkDistance(100)
+      .linkDistance(50)
       .charge(-5000)
       .on("tick", tick)
       .start();

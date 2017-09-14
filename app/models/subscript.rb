@@ -61,6 +61,10 @@ class Subscript < ApplicationRecord
 
 	private
 	    def save_file
+	    	#set default status to 'waiting' if no status is defined
+	    	self.status ||= "waiting"
+	    	
+	    	#if no file given return without saving
 	    	return if self.blob.blank?
 
 	    	self.filename = self.blob.original_filename

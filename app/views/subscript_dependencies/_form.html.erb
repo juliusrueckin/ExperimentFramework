@@ -1,0 +1,29 @@
+<%= form_with(model: subscript_dependency, local: true) do |form| %>
+  <% if subscript_dependency.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(subscript_dependency.errors.count, "error") %> prohibited this dependency from being saved:</h2>
+
+      <ul>
+      <% subscript_dependency.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :algorithm_id, id: :subscript_dependency_algorithm_id, value: subscript_dependency.algorithm_id %>
+
+  <div class="form-group">
+    <%= form.label :parent_script_id %>
+    <%= form.select :parent_script_id, options_from_collection_for_select(subscript_dependency.algorithm.subscripts, "id", "title", subscript_dependency.parent_script_id), {}, {required: 'true', class: 'form-control'} %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :child_script_id %>
+    <%= form.select :child_script_id, options_from_collection_for_select(subscript_dependency.algorithm.subscripts, "id", "title", subscript_dependency.child_script_id), {}, {required: 'true', class: 'form-control'} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Save", class:"btn btn-primary" %>
+  </div>
+<% end %>

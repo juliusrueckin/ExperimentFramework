@@ -136,20 +136,6 @@ h3{
 	padding: 0;
 }
 
-.form-group-heading{
-	margin-top: 20px;
-	margin-bottom: 15px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #555;
-}
-
-.form-group-sub-heading{
-	margin-top: 20px;
-	margin-bottom: 15px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #555;
-}
-
 h1 small{
 	font-size: 16px;
 }
@@ -171,6 +157,26 @@ form label{
 
 form .form-group{
 	margin-bottom: 20px;
+}
+
+.form-group-heading{
+	margin-top: 20px;
+	margin-bottom: 15px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #555;
+}
+
+.form-group-sub-heading{
+	margin-top: 20px;
+	margin-bottom: 15px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #555;
+}
+
+/* basic table style */
+
+table thead th{
+	font-weight: bold;
 }
 
 /* basic list style */
