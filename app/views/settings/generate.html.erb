@@ -63,7 +63,9 @@
 
 	<input type="button" class="btn btn-primary add_field_button toggle_fields_button" id="export_fields_button" value="Remove CSV-Export" />
 
-	<h2 class="form-group-heading">Timeout</h2>
+	<h2 class="form-group-heading">Termination Constraints</h2>
+
+	<h3 class="form-group-sub-heading">Timeout Constraints</h3>
 
 	<div class="form-group" style="margin-top: 20px;">
 		<label for="defaultTimeout">Default Timeout</label>
@@ -72,12 +74,34 @@
 
 	<div class="form-group">	
 		<label for="outputPattern">Status Message Pattern</label>
-		<input class="form-control" id="outputPattern" type="text" name="outputPattern" placeholder="Type in alorithms status message pattern, such as Algorithm works fine!">
+		<input class="form-control" id="outputPattern" type="text" name="outputPattern" placeholder="Type in alorithm's status message pattern, such as 'Algorithm works fine!'">
 	</div>
 
 	<div class="form-group">
 		<label for="maxTimeSinceLastStatusMsg">Status Message dependent Timout</label>
 		<input class="form-control" id="maxTimeSinceLastStatusMsg" type="text" name="maxTimeSinceLastStatusMsg" placeholder="Type in timespan in seconds in which an algorithm has to send defined status message again to be called alive">
+	</div>
+
+	<h3 class="form-group-sub-heading">Performance Constraints</h3>
+
+	<div class="form-group">	
+		<label for="errorPattern">Loss Function Pattern</label>
+		<input class="form-control" id="errorPattern" type="text" name="errorPattern" placeholder="Type in alorithm's loss function pattern, such as 'Loss function: '">
+	</div>
+
+	<div class="form-group">	
+		<label for="minLossFunctionImprovementSinceLastIteration">Loss function improvement threshhold</label>
+		<input class="form-control" id="minLossFunctionImprovementSinceLastIteration" type="text" name="minLossFunctionImprovementSinceLastIteration" placeholder="Type in minimal decrease of loss function compared to last iteration">
+	</div>
+
+	<div class="form-group">	
+		<label for="accuracyPattern">Accuracy Function Pattern</label>
+		<input class="form-control" id="accuracyPattern" type="text" name="accuracyPattern" placeholder="Type in alorithm's accuracy function pattern, such as 'Accuracy function: '">
+	</div>
+
+	<div class="form-group">	
+		<label for="minAccuracyFunctionImprovementSinceLastIteration">Accuracy function improvement threshhold</label>
+		<input class="form-control" id="minAccuracyFunctionImprovementSinceLastIteration" type="text" name="minAccuracyFunctionImprovementSinceLastIteration" placeholder="Type in minimal increase of accuracy function compared to last iteration">
 	</div>
 
 	<h2 class="form-group-heading">Notifiers</h2>
