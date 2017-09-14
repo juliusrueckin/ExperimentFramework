@@ -11,11 +11,12 @@ Rails.application.routes.draw do
 	resources :projects
 
 	resources :subscript_dependencies, only: [:create, :update, :destroy]
-	resources :subscripts, only: [:create, :update, :destroy]
+	resources :subscripts, only: [:create, :edit, :update, :destroy]
 
 	# define download links for configs, algos and datasets
 	get '/download_dataset/(:id)', to: 'datasets#download_dataset', as: :download_dataset
 	get '/download_configuration/(:id)', to: 'settings#download_setting', as: :download_setting
+	get '/download_subscript/(:id)', to: 'subscripts#download_subscript', as: :download_subscript
 
 	# define config file generator link
 	get '/generate_setting', to: 'settings#generate', as: :generate_setting

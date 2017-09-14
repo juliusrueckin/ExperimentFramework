@@ -36,7 +36,7 @@ class SettingsController < ApplicationController
   def store_setting_files
     if !params[:conf_obj].blank? && !params[:general_title].blank? && !params[:description].blank?
       abs_path = Rails.root.join('public', 'uploads', 'settings', params[:general_title] + '.json')
-
+      
       File.open(abs_path, "wb") { |file| file.write params[:conf_obj] }
 
       @setting = Setting.new(title: params[:general_title], description: params[:description], file_path: abs_path)

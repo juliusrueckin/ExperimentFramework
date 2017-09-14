@@ -130,6 +130,26 @@ h2{
 	padding: 0;
 }
 
+h3{
+	font-size: 20px;
+	margin: 10px 0px;
+	padding: 0;
+}
+
+.form-group-heading{
+	margin-top: 20px;
+	margin-bottom: 15px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #555;
+}
+
+.form-group-sub-heading{
+	margin-top: 20px;
+	margin-bottom: 15px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #555;
+}
+
 h1 small{
 	font-size: 16px;
 }
@@ -175,18 +195,30 @@ form .form-group{
 
 .link {
   fill: none;
-  stroke: black;
+  stroke: #666;
   stroke-width: 1.5px;
 }
 
+#licensing {
+  fill: green;
+}
+
+.link.licensing {
+  stroke: green;
+}
+
+.link.resolved {
+  stroke-dasharray: 0,2 1;
+}
+
 circle {
-  fill: #aaa;
-  stroke: #aaa;
+  fill: $brand-primary;
+  stroke: #333;
   stroke-width: 1.5px;
 }
 
 text {
-  font: 10px sans-serif;
+  font-size: 16px;
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }

@@ -11,6 +11,8 @@ class AlgorithmsController < ApplicationController
   # GET /algorithms/1.json
   def show
     @projects = @algorithm.experiments.collect { |experiment| experiment.project }.uniq
+    @subscript = Subscript.new(algorithm_id: @algorithm.id)
+    @subscripts = @algorithm.subscripts
   end
 
   # GET /algorithms/new

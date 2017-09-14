@@ -54,7 +54,7 @@ $(document).ready(function(){
 		isOfTypeStringArr["value_"+i+"_dataTypeOfValue"] = true;
 		current_fields = $("#params_fields").html();
 		$("#params_fields").html(current_fields + 
-		'<span class="param_pair" style="margin: 25px 0px; border-bottom: 1px solid lightgray; display: block;"><span class="field"><label for="name_' + i + '">Parameter name</label><input type="text" name="params[' + i + '][name]" data-param-index="' + i + '" id="name_' + i + '" placeholder="Type in parameter name, such as threshold"></span><span class="field"><label for="value_' + i + '">Parameter value</label><input type="text" name="params[' + i + '][value]" data-param-index="' + i + '" class="param_value_field" id="value_' + i + '" placeholder="Type in parameter value, such aus 0.5"><span class="valueDataTypeCheckboxWrapper"><input class="valueDataTypeCheckbox" type="checkbox" id="value_'+i+'_dataTypeOfValue" value="isString" checked><label for="value_'+i+'_dataTypeOfValue">is String?</label></span></span></span>'); 
+		'<span class="row col-xs-12"><span style="padding-left: 0;" class="form-group col-xs-5"><label for="name_' + i + '">Parameter name</label><input class="form-control" type="text" name="params[' + i + '][name]" data-param-index="' + i + '" id="name_' + i + '" placeholder="Type in parameter name, such as threshold"></span><span class="col-xs-5 form-group"><label for="value_' + i + '">Parameter value</label><input type="text" name="params[' + i + '][value]" data-param-index="' + i + '" class="form-control param_value_field" id="value_' + i + '" placeholder="Type in parameter value, such aus 0.5"></span><span class="col-xs-2 form-group valueDataTypeCheckboxWrapper" style="padding-top: 25px;"><input style="margin-right:10px;" class="valueDataTypeCheckbox" type="checkbox" id="value_'+i+'_dataTypeOfValue" value="isString" checked><label for="value_'+i+'_dataTypeOfValue">is String?</label></span></span>'); 
 		i += 1;
 	});
 
@@ -81,6 +81,9 @@ $(document).ready(function(){
 			}
 		}
 
+		delete conf["general_title"];
+		delete conf["description"];
+
 		setCSVExportProperties();
 
 		$.post($("#createConfigForm").attr("action"),{conf_obj: JSON.stringify(conf), general_title: $("#general_title").val(), description: $("#description").val()},function(data){
@@ -104,10 +107,10 @@ function toggleNotifierFields(){
 	useNotifierDefaults = !useNotifierDefaults;
 	$("#notifiers_fields").toggle(1000);
 	if(useNotifierDefaults){
-		$("#notifiers_fields_button").val("Use default notifier settings");
+		$("#notifiers_fields_button").val("Use customized notifier settings");
 	}
 	else{
-		$("#notifiers_fields_button").val("Use customized notifier settings");
+		$("#notifiers_fields_button").val("Use default notifier settings");
 	}
 }
 

@@ -2,7 +2,7 @@ class Subscript < ApplicationRecord
 
 	attr_accessor :blob
 
-	#before_save :save_file
+	before_save :save_file
 	before_destroy :remove_file
 
 	belongs_to :algorithm
@@ -56,11 +56,14 @@ class Subscript < ApplicationRecord
 	end
 
 	def buildJSONNode
-		return {id: self.id, name: self.title, x: 0, y: 0, status: self.status}
+		return {id: self.id, name: self.title, status: self.status}
 	end
 
 	private
 	    def save_file
+	    	return if self.blob.blank?
+
+	    	self.filename = self.blob.original_filename
 			old_file = Rails.root.join('public', 'uploads', 'algorithms', self.blob.original_filename)
 			File.delete(old_file) if File.exist?(old_file)
 
