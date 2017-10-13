@@ -1,1 +1,0 @@
-{"params":[],"title":"Test","env":"Test","path":"python test.py","csvFilename":"test.csv","csvFields":["id","test1","test2"],"defaultTimeout":"10","outputPattern":"Test works","maxTimeSinceLastStatusMsg":"2","webhook_url":"test","icon":":test","bot_name":"Test Test","token":"Test test test","chat_id":"test123","server":"Gmail Test","user":"Testmailer","password":"test"}
