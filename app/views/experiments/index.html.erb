@@ -9,30 +9,30 @@
   <p id="notice" class="alert alert-success"><%= notice %></p>
 <% end %>
 
-<table  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Project</th>
-      <th>Algorithm</th>
-      <th>Configuration</th>
-      <th>Dataset</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
+<table  class="table">
   <tbody>
-    <% @experiments.each do |experiment| %>
-      <tr>
-        <td><%= experiment.title %></td>
-        <td><%= link_to experiment.project.title, project_path(experiment.project.id) %></td>
-        <td><%= link_to experiment.algorithm.title, algorithm_path(experiment.algorithm.id) %></td>
-        <td><%= link_to experiment.setting.title, setting_path(experiment.setting.id) %></td>
-        <td><%= link_to experiment.dataset.title, dataset_path(experiment.dataset.id) %></td>
-        <td><%= link_to 'Show', experiment %></td>
-        <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
-        <td><%= link_to 'Destroy', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% @experiments.group_by(&:project).each do |project, experiments| %>
+      <tr style="font-weight: bold;" class="bg-primary">
+        <td colspan="7"><%= project.title %></td>
       </tr>
+      <tr style="font-weight: bold;" class="active">
+        <td>Title</td>
+        <td>Algorithm</td>
+        <td>Configuration</td>
+        <td>Dataset</td>
+        <td colspan="3"></td>
+      </tr>
+      <% experiments.each do |experiment| %>
+        <tr>
+          <td><%= experiment.title %></td>
+          <td><%= link_to experiment.algorithm.title, algorithm_path(experiment.algorithm.id) %></td>
+          <td><%= link_to experiment.setting.title, setting_path(experiment.setting.id) %></td>
+          <td><%= link_to experiment.dataset.title, dataset_path(experiment.dataset.id) %></td>
+          <td><%= link_to 'Show', experiment %></td>
+          <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
+          <td><%= link_to 'Destroy', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

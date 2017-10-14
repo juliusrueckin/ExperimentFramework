@@ -23,22 +23,38 @@
 
   <div class="form-group">
     <%= form.label :project_id %>
-    <%= form.select :project_id, options_from_collection_for_select(@projects, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
+    <% if @experiment.project.present? %>
+      <%= form.select :project_id, options_from_collection_for_select(@projects, "id", "title", @experiment.project.id), {}, {required: 'true', class: 'form-control'} %>
+    <% else %>
+      <%= form.select :project_id, options_from_collection_for_select(@projects, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
+    <% end %>
   </div>
 
   <div class="form-group">
     <%= form.label :algorithm_id %>
-    <%= form.select :algorithm_id, options_from_collection_for_select(@algorithms, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
+    <% if @experiment.algorithm.present? %>
+      <%= form.select :algorithm_id, options_from_collection_for_select(@algorithms, "id", "title", @experiment.algorithm.id), {}, {required: 'true', class: 'form-control'} %>
+    <% else %>
+      <%= form.select :algorithm_id, options_from_collection_for_select(@algorithms, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
+    <% end %>
   </div>
 
   <div class="form-group">
     <%= form.label :setting_id %>
-    <%= form.select :setting_id, options_from_collection_for_select(@settings, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
+    <% if @experiment.setting.present? %>
+      <%= form.select :setting_id, options_from_collection_for_select(@settings, "id", "title", @experiment.setting.id), {}, {required: 'true', class: 'form-control'} %>
+    <% else %>
+      <%= form.select :setting_id, options_from_collection_for_select(@settings, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
+    <% end %>
   </div>
 
   <div class="form-group">
     <%= form.label :dataset_id %>
-    <%= form.select :dataset_id, options_from_collection_for_select(@datasets, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
+    <% if @experiment.dataset.present? %>
+      <%= form.select :dataset_id, options_from_collection_for_select(@datasets, "id", "title", @experiment.dataset.id), {}, {required: 'true', class: 'form-control'} %>
+    <% else %>
+      <%= form.select :dataset_id, options_from_collection_for_select(@datasets, "id", "title"), {}, {required: 'true', class: 'form-control'} %>
+    <% end %>
   </div>
 
   <div class="actions">

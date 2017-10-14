@@ -24,12 +24,24 @@ var useNotifierDefaults = false;
 
 $(document).ready(function(){
 
-	$("table tbody tr").on("mouseover", function(){
-		$(this).addClass('active');
-	});
+	$("#startExperimentForm").on("submit", function(e){
+		e.preventDefault();
+		e.stopPropagation();
 
-	$("table tbody tr").on("mouseout", function(){
-		$(this).removeClass('active');
+		//alert(JSON.stringify(objectifyForm($(this).serializeArray())));
+
+		$.ajax({
+		    beforeSend: function(xhrObj){
+		        xhrObj.setRequestHeader("Content-Type","application/json");
+		    },
+		    type: "POST",
+		    url: $(this).attr("action"),       
+		    data: JSON.stringify(objectifyForm($(this).serializeArray())),               
+		    dataType: "json",
+		    success: function(json){
+		       alert("Success");
+		    }
+		});
 	});
 
 	$("body").delegate("#export_fields_button", "click", function(){
@@ -92,6 +104,15 @@ $(document).ready(function(){
 
 	});
 });
+
+function objectifyForm(formArray) {//serialize data function
+
+  var returnArray = {};
+  for (var i = 0; i < formArray.length; i++){
+    returnArray[formArray[i]['name']] = formArray[i]['value'];
+  }
+  return returnArray;
+}
 
 function setCSVExportProperties(){
 	if(exportWanted){
