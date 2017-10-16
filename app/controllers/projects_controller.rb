@@ -16,6 +16,17 @@ class ProjectsController < ApplicationController
     @datasets = @experiments.collect { | experiment| experiment.dataset }.uniq
   end 
 
+  #GET /prjects/1/datasets
+  def get_datasets
+    @datasets = []
+
+    if params[:id].present?
+      @datasets = Project.find_by_id(params[:id]).experiments.collect { | experiment| experiment.dataset }.uniq
+    end
+
+    render json: @datasets 
+  end
+
   # GET /projects/new
   def new
     @project = Project.new

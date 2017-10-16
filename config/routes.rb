@@ -30,4 +30,6 @@ Rails.application.routes.draw do
 	# define ajax route for generating dependency graph links
 	post '/get_algorithm_subscript_dependencies', to: 'algorithms#get_algorithm_subscript_dependencies', as: :get_algorithm_subscript_dependencies
 
+	#define ajax route to get all datasets for a project
+	get 'projects/(:id)/datasets', to: 'projects#get_datasets'
 end

@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require rails-ujs
 //= require bootstrap-sprockets
+//= require bootstrap-toggle
 //= require turbolinks
 //= require_tree .
 
@@ -23,6 +24,10 @@ var exportWanted = true;
 var useNotifierDefaults = false;
 
 $(document).ready(function(){
+
+	addConfigFileParamField();
+	addConfigFileCSVOutputsField();
+	setConfigFileDatasets();
 
 	$("#startExperimentForm").on("submit", function(e){
 		e.preventDefault();
@@ -201,4 +206,107 @@ function extractMailNotifier(conf){
 	delete conf.password;
 
 	return mailNotifierConf;
+}
+
+function addConfigFileParamField(){
+	$(document).on('click', '.param-controls .btn-add', function(e)
+    {
+        e.preventDefault();
+
+        var controlFields = $('.param-controls');
+        var newControlField = $('.param-controls .form-group:last');
+        controlFields.append(newControlField.clone());
+
+        $('.param-controls .form-group .param-name-input').each(function(index){
+        	$(this).attr('name', "params["+(index+1)+"]['name']");
+        });
+        $('.param-controls .form-group .param-value-input').each(function(index){
+        	$(this).attr('name', "params["+(index+1)+"]['value']");
+        });
+
+        newControlField.find('input').val('');
+        controlFields.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+    }).on('click', '.btn-remove', function(e)
+    {
+		$(this).parents('.form-group:first').remove();
+
+		e.preventDefault();
+
+		$('.param-controls .form-group .param-name-input').each(function(index){
+        	$(this).attr('name', "params["+(index+1)+"]['name']");
+        });
+        $('.param-controls .form-group .param-value-input').each(function(index){
+        	$(this).attr('name', "params["+(index+1)+"]['value']");
+        });
+
+		return false;
+	});
+}
+
+function addConfigFileCSVOutputsField(){
+	$(document).on('click', '.csv-controls .btn-add', function(e)
+    {
+        e.preventDefault();
+
+        var controlFields = $('.csv-controls');
+        var newControlField = $('.csv-controls .form-group:last');
+        controlFields.append(newControlField.clone());
+
+        $('.csv-controls .form-group .csv-outputs-name-input').each(function(index){
+        	$(this).attr('name', "csv['outputs']["+index+"]['name']");
+        });
+        $('.csv-controls .form-group .csv-outputs-pattern-input').each(function(index){
+        	$(this).attr('name', "csv['outputs']["+index+"]['pattern']");
+        });
+        $('.csv-controls .form-group .csv-outputs-group-input').each(function(index){
+        	$(this).attr('name', "csv['outputs']["+index+"]['group']");
+        });
+
+        newControlField.find('input').val('');
+        controlFields.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+    }).on('click', '.btn-remove', function(e)
+    {
+		$(this).parents('.form-group:first').remove();
+
+		e.preventDefault();
+
+		$('.csv-controls .form-group .csv-outputs-name-input').each(function(index){
+        	$(this).attr('name', "csv['outputs']["+index+"]['name']");
+        });
+        $('.csv-controls .form-group .csv-outputs-pattern-input').each(function(index){
+        	$(this).attr('name', "csv['outputs']["+index+"]['pattern']");
+        });
+        $('.csv-controls .form-group .csv-outputs-group-input').each(function(index){
+        	$(this).attr('name', "csv['outputs']["+index+"]['group']");
+        });
+
+		return false;
+	});
+}
+
+function setConfigFileDatasets(){
+	$("#createConfigForm #project_id").on("change", function() {
+		var project_id = this.value;
+
+		if(project_id == -1){
+			$(this).val(-1);
+			return false;
+		}
+
+		$.get("/projects/"+project_id+"/datasets")
+		.done(function(jsonResponse){
+			$("#createConfigForm #datasets_dropdown").html("");
+			for(index = 0; index < jsonResponse.length; index++){
+				old_html = $("#createConfigForm #datasets_dropdown").html();
+				new_html = "<option value='"+jsonResponse[index]["id"]+"'>"+jsonResponse[index]["title"]+"</option>";
+				$("#createConfigForm #datasets_dropdown").html(old_html + new_html);
+			};
+		});
+	});
 }

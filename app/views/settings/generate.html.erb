@@ -11,6 +11,16 @@
 	<h3 class="form-group-sub-heading">Information</h3>
 
 	<div class="form-group">
+		<label for="project_id">Project</label>
+		<select name="project_id" id="project_id" class="form-control">
+			<option value="-1">Choose belonging project</option>
+			<% @projects.each do |project| %>
+				<option value="<%= project.id %>"><%= project.title %></option>
+			<% end %>
+		</select>
+	</div>
+
+	<div class="form-group">
 		<label for="general_title">Configuration Title</label>
 		<input type="text" name="general_title" id="general_title" placeholder="Type in configuration's title" class="form-control">
 	</div>
@@ -19,6 +29,8 @@
 		<label for="description">Description</label>
 		<textarea class ="form-control" name="description" id="description" placeholder="Type in configuration's description"></textarea>
 	</div>
+
+	<h3 class="form-group-sub-heading">General Configuration Properties</h3>
 
 	<div class="form-group">
 		<label for="title">Experiment's Title</label>
@@ -40,24 +52,54 @@
 		<input class ="form-control" type="text" name="path" id="path" placeholder="Type in command, which will be executed for starting the experiment, for example 'python test.py'">
 	</div>
 
+	<h3 class="form-group-sub-heading">Datasets</h3>
+	<div class="form-group">
+	    <label class="control-label" for="datasets_dropdown">Datasets to use</label>
+        <select id="datasets_dropdown" name="choosen_datasets" class="multiselect-ui form-control" multiple="multiple"></select>
+	</div>
 	<h3 class="form-group-sub-heading">Parameters</h3>
 
-	<div class="form-group">
-		<span id="params_fields"></span>
-		<button class="btn btn-primary"type="button" class="add_field_button" id="add_param_field_button">Add parameter</button>
+	<div class="param-controls">
+		<div class="form-group">
+			<div class="entry">
+				<div class="col-xs-6" style="padding-left: 0px;">
+					<input type="text" name="params[1]['name']" class="param-name-input form-control" placeholder="Type in parameter's name" />
+				</div>
+				<div class="input-group col-xs-6">
+					<input type="text" name="params[1]['value']" class="param-value-input form-control" placeholder="Type in parameter's value" />
+					<span class="input-group-btn">
+                        <button class="btn btn-success btn-add" type="button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                	</span>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<h2 class="form-group-heading">Export</h2>
 
 	<div id="export_fields">
-		<div class="form-group">
-			<label for="csvFilename">CSV-Filename</label>
-			<input class="form-control" id="csvFilename" type="text" name="csvFilename" placeholder="Type in filename of csv export file">
-		</div>
-
-		<div class="form-group">
-			<label for="csvFields">CSV-Fields</label>
-			<input class="form-control" id="csvFields" type="text" name="csvFields" placeholder="Type in csv fields (table columns, comma seperated), such as 'id, firstname, lastname, street, city'">
+		<div class="csv-controls">
+			<div class="form-group">
+				<div class="entry">
+					<div class="col-xs-4" style="padding-left: 0px;">
+						<input type="text" name="csv['outputs'][0]['name']" class="csv-outputs-name-input form-control" placeholder="Type in attribute's name" />
+					</div>
+					<div class="col-xs-4" style="padding-left: 0px;">
+						<input type="text" name="csv['outputs'][0]['pattern']" class="csv-outputs-pattern-input form-control" placeholder="Type in regex to find attributes value in stdout" />
+					</div>
+					<label for="csv-outputs-group-field" style="margin-left: 0px; padding-right: 0px; padding-top: 10px;" class="col-xs-2 control-label">Regex Result Group</label>
+					<div class="input-group col-xs-2">
+						<input id="csv-outputs-group-field" type="number" name="csv['outputs'][0]['group']" class="csv-outputs-group-input form-control" min="0" />
+						<span class="input-group-btn">
+	                        <button class="btn btn-success btn-add" type="button">
+	                            <span class="glyphicon glyphicon-plus"></span>
+	                        </button>
+	                	</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -68,40 +110,55 @@
 	<h3 class="form-group-sub-heading">Timeout Constraints</h3>
 
 	<div class="form-group" style="margin-top: 20px;">
+		<label for="defaultError">Default Error Message</label>
+		<input class="form-control" id="defaultError" type="text" name="stdout_parsing['error']" placeholder="Type in error message regex pattern on which algorithm will be terminated">
+	</div>
+
+	<div class="form-group" style="margin-top: 20px;">
 		<label for="defaultTimeout">Default Timeout</label>
-		<input class="form-control" id="defaultTimeout" type="text" name="defaultTimeout" placeholder="Type in time in seconds until when a single instance of a experiment series has to be terminated">
+		<input class="form-control" id="defaultTimeout" type="number" min="0" name="timeout" placeholder="Type in time in seconds when an instance of an experiment timed out">
 	</div>
 
 	<div class="form-group">	
 		<label for="outputPattern">Status Message Pattern</label>
-		<input class="form-control" id="outputPattern" type="text" name="outputPattern" placeholder="Type in alorithm's status message pattern, such as 'Algorithm works fine!'">
+		<input class="form-control" id="outputPattern" type="text" name="stdout_parsing['status']" placeholder="Type in status message regex pattern">
 	</div>
 
 	<div class="form-group">
 		<label for="maxTimeSinceLastStatusMsg">Status Message dependent Timout</label>
-		<input class="form-control" id="maxTimeSinceLastStatusMsg" type="text" name="maxTimeSinceLastStatusMsg" placeholder="Type in timespan in seconds in which an algorithm has to send defined status message again to be called alive">
+		<input class="form-control" id="maxTimeSinceLastStatusMsg" type="number" min="0"name="stdout_parsing['max_time_since_last_status']" placeholder="Type in timespan in seconds in which an algorithm has to send defined status message again to be called alive">
 	</div>
 
 	<h3 class="form-group-sub-heading">Performance Constraints</h3>
 
-	<div class="form-group">	
-		<label for="errorPattern">Loss Function Pattern</label>
-		<input class="form-control" id="errorPattern" type="text" name="errorPattern" placeholder="Type in alorithm's loss function pattern, such as 'Loss function: '">
+	<div class="row">
+		<div class="col-xs-5">
+			<label for="lossFunctionPattern">Loss Function Pattern</label>
+			<input class="form-control" id="lossFunctionPattern" type="text" name="stdout_parsing['loss_function']" placeholder="Type in loss function regex pattern">
+		</div>
+		<div class="col-xs-5">
+			<label for="lossFunctionValuePattern">Loss Function Value Pattern</label>
+			<input class="form-control" id="lossFunctionValuePattern" type="text" name="stdout_parsing['loss_function_value']" placeholder="Type in loss function value regex pattern">
+		</div>
+		<div class="col-xs-2">
+			<label for="minLossFunctionImprovementSinceLastIteration">Improvement Threshhold</label>
+			<input class="form-control" id="minLossFunctionImprovementSinceLastIteration" type="number" min="0" step="0.005" name="stdout_parsing['min_loss_function_improvement']" placeholder="Type in minimal decrease of loss function compared to last iteration">
+		</div>
 	</div>
 
-	<div class="form-group">	
-		<label for="minLossFunctionImprovementSinceLastIteration">Loss function improvement threshhold</label>
-		<input class="form-control" id="minLossFunctionImprovementSinceLastIteration" type="text" name="minLossFunctionImprovementSinceLastIteration" placeholder="Type in minimal decrease of loss function compared to last iteration">
-	</div>
-
-	<div class="form-group">	
-		<label for="accuracyPattern">Accuracy Function Pattern</label>
-		<input class="form-control" id="accuracyPattern" type="text" name="accuracyPattern" placeholder="Type in alorithm's accuracy function pattern, such as 'Accuracy function: '">
-	</div>
-
-	<div class="form-group">	
-		<label for="minAccuracyFunctionImprovementSinceLastIteration">Accuracy function improvement threshhold</label>
-		<input class="form-control" id="minAccuracyFunctionImprovementSinceLastIteration" type="text" name="minAccuracyFunctionImprovementSinceLastIteration" placeholder="Type in minimal increase of accuracy function compared to last iteration">
+	<div class="row" style="margin-top: 20px;">
+		<div class="col-xs-5">
+			<label for="accuracyFunctionPattern">Accuracy Function Pattern</label>
+			<input class="form-control" id="accuracyFunctionPattern" type="text" name="stdout_parsing['accuracy_function']" placeholder="Type in accuracy function regex pattern">
+		</div>
+		<div class="col-xs-5">
+			<label for="accuracyFunctionValuePattern">Accuracy Function Value Pattern</label>
+			<input class="form-control" id="accuracyFunctionValuePattern" type="text" name="stdout_parsing['accuracy_function_value']" placeholder="Type in accuracy function value regex pattern">
+		</div>
+		<div class="col-xs-2">
+			<label for="minAccuracyFunctionImprovementSinceLastIteration">Improvement Threshhold</label>
+			<input class="form-control" id="minAccuracyFunctionImprovementSinceLastIteration" type="number" min="0" step="0.005" name="stdout_parsing['min_accuracy_function_improvement']" placeholder="Type in minimal increase of accuracy function compared to last iteration">
+		</div>
 	</div>
 
 	<h2 class="form-group-heading">Notifiers</h2>
@@ -109,48 +166,62 @@
 	<div id="notifiers_fields">
 		<h3 class="form-group-sub-heading">Slack</h3>
 
-		<div class="form-group">
-			<label for="webhook_url">Webhook-URL</label>
-			<input class="form-control" id="webhook_url" type="text" name="webhook_url" placeholder="Paste in your personal slack webhook">
-		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-xs-3">
+				<input class="form-control" id="webhook_url" type="text" name="slack['webhook_url']" placeholder="Type in your personal slack webhook">
+			</div>
 
-		<div class="form-group">
-			<label for="icon">Bot-Chat-Icon</label>
-			<input class="form-control" id="icon" type="text" name="icon" placeholder="Such as ':golf:'">
-		</div>
+			<div class="col-xs-3">
+				<input class="form-control" id="icon" type="text" name="slack['icon']" placeholder="TYpe in bot's icon, such as ':golf:'">
+			</div>
 
-		<div class="form-group">
-			<label for="bot_name">Bot-Chat-Name</label>
-			<input class="form-control" id="bot_name" type="text" name="bot_name" placeholder="Type in bot's chat name">
+			<div class="col-xs-3">
+				<input class="form-control" id="bot_name" type="text" name="slack['bot_name']" placeholder="Type in bot's chat name">
+			</div>
+
+			<div class="col-xs-3">
+				<label>
+					<input type="checkbox" data-toggle="toggle" name="slack['verbose']">
+					Verbose notification of each run</label>
+				</label>
+			</div>
 		</div>
 
 		<h3 class="form-group-sub-heading">Telegram</h3>
 
-		<div class="form-group">
-			<label for="token">Token</label>
-			<input class="form-control" id="token" type="text" name="token" placeholder="Paste in your generated token for your created bot">
-		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-xs-4">
+				<input class="form-control" id="token" type="text" name="telegram['token']" placeholder="Paste in your generated token for your created bot">
+			</div>
 
-		<div class="form-group">
-			<label for="chat_id">Chat ID</label>
-			<input class="form-control" id="chat_id" type="text" name="chat_id" placeholder="Paste in your telegram's chat id">
+			<div class="col-xs-4">
+				<input class="form-control" id="chat_id" type="text" name="telegram['chat_id']" placeholder="Paste in your telegram's chat id">
+			</div>
+
+			<div class="col-xs-1"></div>
+
+			<div class="col-xs-3">
+				<label>
+					<input type="checkbox" data-toggle="toggle"  name="telegram['verbose']">
+					Verbose notification of each run</label>
+				</label>
+			</div>
 		</div>
 
 		<h3 class="form-group-sub-heading">Mail</h3>
 
-		<div class="form-group">
-			<label for="server">Server</label>
-			<input class="form-control" id="server" type="text" name="server" placeholder="Type in mail server, such as 'smtp.gmail.com'">
-		</div>
+		<div class="row" style="margin-bottom: 20px;">
+			<div class="col-xs-4">
+				<input class="form-control" id="server" type="text" name="mail['server']" placeholder="Type in mail server, such as 'smtp.gmail.com'">
+			</div>
 
-		<div class="form-group">
-			<label for="user">User</label>
-			<input class="form-control" id="user" type="text" name="user" placeholder="Type in your mail server's username">
-		</div>
+			<div class="col-xs-4">
+				<input class="form-control" id="user" type="text" name="mail['user']" placeholder="Type in your mail server's username">
+			</div>
 
-		<div class="form-group">
-			<label for="password">Password</label>
-			<input class="form-control" id="password" type="password" name="password" placeholder="Type in your password related to given username">
+			<div class="col-xs-4">
+				<input class="form-control" id="password" type="password" name="mail['password']" placeholder="Type in your password related to given username">
+			</div>
 		</div>
 	</div>
 

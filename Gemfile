@@ -44,6 +44,7 @@ gem 'jquery-ui-rails', '5.0.0'
 # Use bootstrap for cool user interfaces
 gem 'autoprefixer-rails'#
 gem 'bootstrap-sass'
+gem 'bootstrap-toggle-rails'
 
 # Beautiful icons
 gem 'font-awesome-sass'

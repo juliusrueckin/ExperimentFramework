@@ -14,21 +14,12 @@
 
 <p>
   <form id="startExperimentForm" action="http://127.0.0.1:8080/start_experiment" method="post" enctype="application/json">
-    <input type="hidden" name="basicConfigFilePath" value="<%= @experiment.setting.file_path %>" />
-    <input type="hidden" name="slackConfigFilePath" value="<%= @experiment.setting.file_path %>" />
-    <input type="hidden" name="telegramConfigFilePath" value="<%= @experiment.setting.file_path %>" />
-    <input type="hidden" name="mailConfigFilePath" value="<%= @experiment.setting.file_path %>" />
-    <input type="hidden" name="timeoutConfigFilePath" value="<%= @experiment.setting.file_path %>" />
+    <input type="hidden" name="configFilePath" value="<%= @experiment.setting.file_path %>" />
 
-    <div class="input-group">
-      <input class="form-control" type="number" name="repetitions" min="1" placeholder="Enter number of repetitions - determines how often experiment will be executed with properties as defined below">
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary">
-          <span class="glyphicon glyphicon-play icon-spacer"></span>
-          Start Experiment
-        </button>
-      </span>
-    </div>
+    <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-play icon-spacer"></span>
+      Start Experiment
+    </button>
   </form>
 </p>
 

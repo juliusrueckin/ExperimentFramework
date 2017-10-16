@@ -30,6 +30,7 @@ class SettingsController < ApplicationController
 
   #GET /settings/generate
   def generate
+    @projects = Project.order("lower(title)")
   end
 
   #POST /store_setting_files'
