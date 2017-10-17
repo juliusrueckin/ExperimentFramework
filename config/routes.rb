@@ -21,8 +21,8 @@ Rails.application.routes.draw do
 	# define config file generator link
 	get '/generate_setting', to: 'settings#generate', as: :generate_setting
 
-	# define ajax route for generatíng config files
-	post '/generate_config_file', to: 'settings#store_setting_files', as: :generate_config_file
+	# define route for generatíng config files
+	get '/generate_config_file', to: 'settings#store_setting_files'
 
 	# define ajax route for generating dependency graph nodes
 	post '/get_algorithm_subscripts', to: 'algorithms#get_algorithm_subscripts', as: :get_algorithm_subscripts

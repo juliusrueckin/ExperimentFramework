@@ -35,10 +35,11 @@ class SettingsController < ApplicationController
 
   #POST /store_setting_files'
   def store_setting_files
-    if !params[:conf_obj].blank? && !params[:general_title].blank? && !params[:description].blank?
+    if params[:description].present? && params[:general_title].present?
       abs_path = Rails.root.join('public', 'uploads', 'settings', params[:general_title] + '.json')
+      config_file_content = params.to_json
       
-      File.open(abs_path, "wb") { |file| file.write params[:conf_obj] }
+      File.open(abs_path, "wb") { |file| file.write config_file_content }
 
       @setting = Setting.new(title: params[:general_title], description: params[:description], file_path: abs_path)
 
@@ -48,7 +49,7 @@ class SettingsController < ApplicationController
         redirect_to generate_setting_path, notice: 'Configuration could not be stored. An error occured!.'
       end
     else
-      redirect_to generate_setting_path, notice: 'Config file or configuration details missing!'
+      redirect_to generate_setting_path, notice: "Config file's general title and description must be set!"
     end
   end
 

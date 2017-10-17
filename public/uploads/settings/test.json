@@ -1,0 +1,52 @@
+{
+	"project_id":"-1",
+	"general_title":"test",
+	"description":"test",
+	"title":"",
+	"env":"",
+	"path":"",
+
+	"params":{
+		"1":{"name":"","value":""}
+	},
+
+	"csv":{
+		"outputs":{
+			"0":{"name":"","pattern":"","group":""}
+		}
+	},
+
+	"stdout_parsing":{
+		"error":"",
+		"status":"",
+		"'max_time_since_last_status'":"",
+		"loss_function":"",
+		"loss_function_value":"",
+		"min_loss_function_improvement":"",
+		"accuracy_function":"",
+		"accuracy_function_value":"",
+		"min_accuracy_function_improvement":""
+	},
+
+	"timeout":"",
+
+	"slack":{
+		"webhook_url":"",
+		"icon":"",
+		"bot_name":""
+	},
+
+	"telegram":{
+		"token":"",
+		"chat_id":""
+	},
+
+	"mail":{
+		"server":"",
+		"user":"",
+		"password":""
+	},
+	
+	"controller":"settings",
+	"action":"store_setting_files"
+}
