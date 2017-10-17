@@ -9,26 +9,28 @@
   <p id="notice" class="alert alert-success"><%= notice %></p>
 <% end %>
 
-<table  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>File path</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @settings.each do |setting| %>
+<% if @settings.count > 0 %>
+  <table  class="table table-striped">
+    <thead>
       <tr>
-        <td><%= setting.title %></td>
-        <td><%= setting.description %></td>
-        <td><%= link_to setting.file_path.split("/uploads/")[1], download_setting_path(setting.id), target: "_blank" %></td>
-        <td><%= link_to 'Show', setting %></td>
-        <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
-        <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Title</th>
+        <th>Description</th>
+        <th>File path</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @settings.each do |setting| %>
+        <tr>
+          <td><%= setting.title %></td>
+          <td><%= setting.description %></td>
+          <td><%= link_to setting.file_path.split("/")[-1], download_setting_path(setting.id), target: "_self" %></td>
+          <td><%= link_to 'Show', setting %></td>
+          <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
+          <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

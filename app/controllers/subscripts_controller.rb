@@ -6,7 +6,7 @@ class SubscriptsController < ApplicationController
 	def download_subscript
 		subscript = Subscript.find_by_id(params[:id])
 		if !subscript.nil?
-		 	send_file subscript.file_path, disposition: 'inline'
+		 	send_file subscript.file_path, filename: subscript.filename
 		else
 		 	redirect_to algorithm_path(subscript.algorithm.id)
 		end

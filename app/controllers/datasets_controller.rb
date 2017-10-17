@@ -16,7 +16,7 @@ class DatasetsController < ApplicationController
   def download_dataset
     dataset = Dataset.find_by_id(params[:id])
     if !dataset.nil?
-      send_file dataset.file_path, disposition: 'inline'
+      send_file dataset.file_path, filename: dataset.file_path.split("/")[-1]
     else
       redirect_to datasets_path
     end

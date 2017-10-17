@@ -67,7 +67,7 @@
           <tr>
             <td><%= subscript.title %></td>
             <td><%= subscript.author %></td>
-            <td><%= link_to subscript.filename, download_subscript_path(subscript.id), target: "_blank" %></td>
+            <td><%= link_to subscript.filename, download_subscript_path(subscript.id), target: "_self" %></td>
             <td><%= link_to 'Edit', edit_subscript_path(subscript) %></td>
             <td><%= link_to 'Destroy', subscript, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>

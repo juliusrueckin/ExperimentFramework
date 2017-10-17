@@ -9,7 +9,7 @@
   <p id="notice" class="alert alert-success"><%= notice %></p>
 <% end %>
 
-<form action="/generate_config_file" methdod="get" id="createConfigForm" enctype="application/json">
+<form action="/generate_config_file" methdod="get" id="createConfigForm">
 	<h2 class="form-group-heading">General</h2>
 
 	<h3 class="form-group-sub-heading">Information</h3>
@@ -27,6 +27,11 @@
 	<div class="form-group">
 		<label for="general_title">Configuration Title</label>
 		<input type="text" name="general_title" id="general_title" placeholder="Type in configuration's title" class="form-control">
+	</div>
+
+	<div class="form-group">
+		<label for="config_filename">Config Filename</label>
+		<input type="text" name="config_filename" id="config_filename" placeholder="Type in config filename without file ending" class="form-control">
 	</div>
 
 	<div class="form-group">
@@ -56,6 +61,13 @@
 		<input class ="form-control" type="text" name="path" id="path" placeholder="Type in command, which will be executed for starting the experiment, for example 'python test.py'">
 	</div>
 
+	<div class="form-group">
+		<label>
+		<input type="checkbox" data-toggle="toggle"  value=1 name="serialize_runs">
+			Serialize differently parameterized runs</label>
+		</label>
+	</div>
+
 	<h3 class="form-group-sub-heading">Datasets</h3>
 	<div class="form-group">
 	    <label class="control-label" for="datasets_dropdown">Datasets to use</label>
@@ -67,10 +79,10 @@
 		<div class="form-group">
 			<div class="entry">
 				<div class="col-xs-6" style="padding-left: 0px;">
-					<input type="text" name="params[1][name]" class="param-name-input form-control" placeholder="Type in parameter's name" />
+					<input type="text" name="params[][name]" class="param-name-input form-control" placeholder="Type in parameter's name" />
 				</div>
 				<div class="input-group col-xs-6">
-					<input type="text" name="params[1][value]" class="param-value-input form-control" placeholder="Type in parameter's value" />
+					<input type="text" name="params[][value]" class="param-value-input form-control" placeholder="Type in parameter's value" />
 					<span class="input-group-btn">
                         <button class="btn btn-success btn-add" type="button">
                             <span class="glyphicon glyphicon-plus"></span>
@@ -88,14 +100,14 @@
 			<div class="form-group">
 				<div class="entry">
 					<div class="col-xs-4" style="padding-left: 0px;">
-						<input type="text" name="csv[outputs][0][name]" class="csv-outputs-name-input form-control" placeholder="Type in attribute's name" />
+						<input type="text" name="csv[outputs][][name]" class="csv-outputs-name-input form-control" placeholder="Type in attribute's name" />
 					</div>
 					<div class="col-xs-4" style="padding-left: 0px;">
-						<input type="text" name="csv[outputs][0][pattern]" class="csv-outputs-pattern-input form-control" placeholder="Type in regex to find attributes value in stdout" />
+						<input type="text" name="csv[outputs][][pattern]" class="csv-outputs-pattern-input form-control" placeholder="Type in regex to find attributes value in stdout" />
 					</div>
 					<label for="csv-outputs-group-field" style="margin-left: 0px; padding-right: 0px; padding-top: 10px;" class="col-xs-2 control-label">Regex Result Group</label>
 					<div class="input-group col-xs-2">
-						<input id="csv-outputs-group-field" type="number" name="csv[outputs][0][group]" class="csv-outputs-group-input form-control" min="0" />
+						<input id="csv-outputs-group-field" type="number" name="csv[outputs][][group]" class="csv-outputs-group-input form-control" min="0" />
 						<span class="input-group-btn">
 	                        <button class="btn btn-success btn-add" type="button">
 	                            <span class="glyphicon glyphicon-plus"></span>
@@ -107,7 +119,10 @@
 		</div>
 	</div>
 
-	<input type="button" class="btn btn-primary add_field_button toggle_fields_button" id="export_fields_button" value="Remove CSV-Export" />
+	<label id="export_fields_button">
+		<input type="checkbox" data-toggle="toggle"  value=1 name="ignore_csv_export">
+		Ignore CSV Export</label>
+	</label>
 
 	<h2 class="form-group-heading">Termination Constraints</h2>
 
@@ -185,7 +200,7 @@
 
 			<div class="col-xs-3">
 				<label>
-					<input type="checkbox" data-toggle="toggle" name="slack[verbose]">
+					<input type="checkbox" data-toggle="toggle" value=1 name="slack[verbose]">
 					Verbose notification of each run</label>
 				</label>
 			</div>
@@ -206,7 +221,7 @@
 
 			<div class="col-xs-3">
 				<label>
-					<input type="checkbox" data-toggle="toggle"  name="telegram[verbose]">
+					<input type="checkbox" data-toggle="toggle"  value=1  name="telegram[verbose]">
 					Verbose notification of each run</label>
 				</label>
 			</div>
@@ -229,10 +244,16 @@
 		</div>
 	</div>
 
-	<input type="button" class="btn btn-primary add_field_button toggle_fields_button" id="notifiers_fields_button" value="Use default notifier settings" />
+	<label id="notifiers_fields_button">
+		<input type="checkbox" data-toggle="toggle"  value=1  name="ignore_nofiers">
+		Ignore notifiers</label>
+	</label>
+
 	<hr>
+
 	<input class="btn btn-primary" type="submit" value="Generate Config-JSON Files" />
 </form>
+
 <p>
-<%= link_to 'Back', settings_path %>
+	<%= link_to 'Back', settings_path %>
 </p>

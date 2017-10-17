@@ -17,7 +17,7 @@ class SettingsController < ApplicationController
   def download_setting
     setting = Setting.find_by_id(params[:id])
     if !setting.nil?
-      send_file setting.file_path, disposition: 'inline'
+      send_file setting.file_path, filename: setting.file_path.split("/")[-1]
     else
       redirect_to settings_path
     end
@@ -35,21 +35,42 @@ class SettingsController < ApplicationController
 
   #POST /store_setting_files'
   def store_setting_files
-    if params[:description].present? && params[:general_title].present?
-      abs_path = Rails.root.join('public', 'uploads', 'settings', params[:general_title] + '.json')
+    if params[:description].present? && params[:general_title].present? && params[:config_filename].present?
+      description = params[:description]
+      general_title = params[:general_title]
+      config_filename = params[:config_filename]
+
+      params.delete :project_id
+      params.delete :description
+      params.delete :general_title
+      params.delete :config_filename
+      params.delete :controller
+      params.delete :action
+
+      if params[:ignore_csv_export].present?
+        params.delete :csv
+        params.delete :ignore_csv_export
+      end
+
+      if params[:ignore_nofiers].present?
+        params.delete :slack
+        params.delete :telegram
+        params.delete :mail
+        params.delete :ignore_nofiers
+      end
+
+      abs_path = Rails.root.join('public', 'uploads', 'settings', config_filename + '.json')
       config_file_content = params.to_json
       
       File.open(abs_path, "wb") { |file| file.write config_file_content }
-
-      @setting = Setting.new(title: params[:general_title], description: params[:description], file_path: abs_path)
-
+      @setting = Setting.new(title: general_title, description: description, file_path: abs_path)
       if @setting.save
         redirect_to @setting, notice: 'Configuration was successfully created.'
       else
-        redirect_to generate_setting_path, notice: 'Configuration could not be stored. An error occured!.'
+        redirect_to generate_setting_path, notice: 'Configuration could not be stored. An error occured!'
       end
     else
-      redirect_to generate_setting_path, notice: "Config file's general title and description must be set!"
+      redirect_to generate_setting_path, notice: "Config file's general title, filename and description must be set!"
     end
   end
 

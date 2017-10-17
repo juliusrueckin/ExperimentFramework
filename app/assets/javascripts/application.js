@@ -20,8 +20,6 @@
 //= require_tree .
 
 var i = 0;
-var exportWanted = true;
-var useNotifierDefaults = false;
 
 $(document).ready(function(){
 
@@ -32,8 +30,6 @@ $(document).ready(function(){
 	$("#startExperimentForm").on("submit", function(e){
 		e.preventDefault();
 		e.stopPropagation();
-
-		//alert(JSON.stringify(objectifyForm($(this).serializeArray())));
 
 		$.ajax({
 		    beforeSend: function(xhrObj){
@@ -50,11 +46,11 @@ $(document).ready(function(){
 	});
 
 	$("body").delegate("#export_fields_button", "click", function(){
-		toggleExportFields();
+		$("#export_fields").toggle(500);
 	});
 
 	$("body").delegate("#notifiers_fields_button", "click", function(){
-		toggleNotifierFields();
+		$("#notifiers_fields").toggle(500);
 	});
 
 });
@@ -66,28 +62,6 @@ function objectifyForm(formArray) {//serialize data function
     returnArray[formArray[i]['name']] = formArray[i]['value'];
   }
   return returnArray;
-}
-
-function toggleNotifierFields(){
-	useNotifierDefaults = !useNotifierDefaults;
-	$("#notifiers_fields").toggle(500);
-	if(useNotifierDefaults){
-		$("#notifiers_fields_button").val("Use customized notifier settings");
-	}
-	else{
-		$("#notifiers_fields_button").val("Use default notifier settings");
-	}
-}
-
-function toggleExportFields(){
-	exportWanted = !exportWanted;
-	$("#export_fields").toggle(500);
-	if(!exportWanted){
-		$("#export_fields_button").val("Add CSV-Export");
-	}
-	else{
-		$("#export_fields_button").val("Remove CSV-Export");
-	}
 }
 
 function extractTimeoutProperties(conf){
@@ -157,10 +131,10 @@ function addConfigFileParamField(){
         controlFields.append(newControlField.clone());
 
         $('.param-controls .form-group .param-name-input').each(function(index){
-        	$(this).attr('name', "params["+(index+1)+"]['name']");
+        	$(this).attr('name', 'params[][name]');
         });
         $('.param-controls .form-group .param-value-input').each(function(index){
-        	$(this).attr('name', "params["+(index+1)+"]['value']");
+        	$(this).attr('name', 'params[][value]');
         });
 
         newControlField.find('input').val('');
@@ -175,10 +149,10 @@ function addConfigFileParamField(){
 		e.preventDefault();
 
 		$('.param-controls .form-group .param-name-input').each(function(index){
-        	$(this).attr('name', "params["+(index+1)+"]['name']");
+        	$(this).attr('name', 'params[][name]');
         });
         $('.param-controls .form-group .param-value-input').each(function(index){
-        	$(this).attr('name', "params["+(index+1)+"]['value']");
+        	$(this).attr('name', 'params[][value]');
         });
 
 		return false;
@@ -195,13 +169,13 @@ function addConfigFileCSVOutputsField(){
         controlFields.append(newControlField.clone());
 
         $('.csv-controls .form-group .csv-outputs-name-input').each(function(index){
-        	$(this).attr('name', "csv['outputs']["+index+"]['name']");
+        	$(this).attr('name', 'csv[outputs][][name]');
         });
         $('.csv-controls .form-group .csv-outputs-pattern-input').each(function(index){
-        	$(this).attr('name', "csv['outputs']["+index+"]['pattern']");
+        	$(this).attr('name', 'csv[outputs][][pattern]');
         });
         $('.csv-controls .form-group .csv-outputs-group-input').each(function(index){
-        	$(this).attr('name', "csv['outputs']["+index+"]['group']");
+        	$(this).attr('name', 'csv[outputs][][group]');
         });
 
         newControlField.find('input').val('');
@@ -216,13 +190,13 @@ function addConfigFileCSVOutputsField(){
 		e.preventDefault();
 
 		$('.csv-controls .form-group .csv-outputs-name-input').each(function(index){
-        	$(this).attr('name', "csv['outputs']["+index+"]['name']");
+        	$(this).attr('name', 'csv[outputs][][name]');
         });
         $('.csv-controls .form-group .csv-outputs-pattern-input').each(function(index){
-        	$(this).attr('name', "csv['outputs']["+index+"]['pattern']");
+        	$(this).attr('name', 'csv[outputs][][pattern]');
         });
         $('.csv-controls .form-group .csv-outputs-group-input').each(function(index){
-        	$(this).attr('name', "csv['outputs']["+index+"]['group']");
+        	$(this).attr('name', 'csv[outputs][][group]');
         });
 
 		return false;

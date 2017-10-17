@@ -1,7 +1,7 @@
 <h1>
   <%= @setting.title %>
   <small>
-    <%= link_to ' | download', download_setting_path(@setting.id), target: "_blank" %>
+    <%= link_to ' | download', download_setting_path(@setting.id), target: "_self" %>
     <%= link_to ' | edit', edit_setting_path(@setting) %>
     <%= link_to ' | destroy', @setting, method: :delete, data: { confirm: 'Are you sure?' } %>
   </small>
@@ -23,7 +23,7 @@
 
 <p>
   <strong>Filename:</strong>
-  <%= @setting.file_path.split("/uploads/")[1] %>
+  <%= @setting.file_path.split("/")[-1] %>
 </p>
 
 <p>

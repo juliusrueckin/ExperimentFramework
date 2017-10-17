@@ -3,11 +3,10 @@
 	"path": "/home/julius/Dokumente/Uni/HPI/Jobs/GFZ/experiment_framework_prototype",
 	"cmd": "python bubble.py",
 	"title": "Bubble Sort Test Experiment",
-	"timeout": 1000,
-
+	"error": "^(.*?(?:error).*?)$",
 	"params": [
-		{"name": "minPts", "value" : ["2"]},
-		{"name": "epsilon", "value" : ["0.1"]},
+		{"name": "minPts", "value" : ["2","3"]},
+		{"name": "epsilon", "value" : ["0.1","0.2"]},
 		{"name": "dataset", "value": ["dataset1.csv", "dataset2.csv"]}
 	],
 
@@ -36,15 +35,11 @@
 		"verbose": 1
 	},
 
-	"stdout_parsing": {
-		"error": "^(.*?(?:error).*?)$",
-		"status": "^(.*?(?:still working fine).*?)$",
-		"max_time_since_last_status": 200,
-		"loss_function": "^(.*?(?:loss function).*?)$",
-		"loss_function_value": "(-?\\d+(\\.\\d+)?)",
-		"min_loss_function_improvement": 10,
-		"accuracy_function": "^(.*?(?:accuracy function).*?)$",
-		"accuracy_function_value": "(-?\\d+(\\.\\d+)?)",
-		"min_accuracy_function_improvement": 10
-	}
+	"defaultTimeout": 1000,
+	"outputPattern": "Algorithm still working fine",
+	"maxTimeSinceLastStatusMsg": 200,
+	"errorPattern": "Loss function: ",
+	"minLossFunctionImprovementSinceLastIteration": 10,
+	"accuracyPattern": "Accuracy function: ",
+	"minAccuracyFunctionImprovementSinceLastIteration": 10
 }
