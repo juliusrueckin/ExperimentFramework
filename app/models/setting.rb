@@ -1,6 +1,7 @@
 class Setting < ApplicationRecord
 
 	attr_accessor :blob
+	attr_accessor :user_file_path
 
 	before_save :save_file
 	before_destroy :remove_file
@@ -9,7 +10,7 @@ class Setting < ApplicationRecord
 	
 	private
 	    def save_file
-	    	if !self.blob.nil?
+	    	if self.blob.present?
 				old_file = Rails.root.join('public', 'uploads', 'settings',self.blob.original_filename)
 				File.delete(old_file) if File.exist?(old_file)
 
@@ -19,6 +20,8 @@ class Setting < ApplicationRecord
 				end
 
 				self.file_path = abs_path
+			else
+				self.file_path = self.user_file_path
 			end
 	    end
 

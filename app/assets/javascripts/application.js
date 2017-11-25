@@ -214,11 +214,11 @@ function setConfigFileDatasets(){
 
 		$.get("/projects/"+project_id+"/datasets")
 		.done(function(jsonResponse){
-			$("#createConfigForm #datasets_dropdown").html("");
+			$("#createConfigForm #dataset_list").html("");
 			for(index = 0; index < jsonResponse.length; index++){
-				old_html = $("#createConfigForm #datasets_dropdown").html();
-				new_html = "<option value='"+jsonResponse[index]["id"]+"'>"+jsonResponse[index]["title"]+"</option>";
-				$("#createConfigForm #datasets_dropdown").html(old_html + new_html);
+				old_html = $("#createConfigForm #dataset_list").html();
+				new_html = "<div class='col-xs-12'><label for='use_dataset_"+index+"'><input type='checkbox' id='use_dataset_"+index+"' value='"+jsonResponse[index]["file_path"]+"' name='use_dataset[]'>"+jsonResponse[index]["title"]+"</label></div>";
+				$("#createConfigForm #dataset_list").html(old_html + new_html);
 			};
 		});
 	});

@@ -58,21 +58,22 @@
 
 	<div class="form-group">
 		<label for="path">Command</label>
-		<input class ="form-control" type="text" name="path" id="path" placeholder="Type in command, which will be executed for starting the experiment, for example 'python test.py'">
+		<input class ="form-control" type="text" name="cmd" id="cmd" placeholder="Type in command, which will be executed for starting the experiment, for example 'python test.py'">
 	</div>
 
 	<div class="form-group">
 		<label>
-		<input type="checkbox" data-toggle="toggle"  value=1 name="serialize_runs">
-			Serialize differently parameterized runs</label>
+			<input type="checkbox" data-toggle="toggle"  value=1 name="serialize_runs">
+			Serialize differently parameterized runs
 		</label>
 	</div>
 
 	<h3 class="form-group-sub-heading">Datasets</h3>
+
 	<div class="form-group">
-	    <label class="control-label" for="datasets_dropdown">Datasets to use</label>
-        <select id="datasets_dropdown" name="choosen_datasets" class="form-control" multiple="multiple"></select>
+	    <div id="dataset_list" class="row"></div>
 	</div>
+
 	<h3 class="form-group-sub-heading">Parameters</h3>
 
 	<div class="param-controls">
@@ -121,7 +122,7 @@
 
 	<label id="export_fields_button">
 		<input type="checkbox" data-toggle="toggle"  value=1 name="ignore_csv_export">
-		Ignore CSV Export</label>
+		Ignore CSV Export
 	</label>
 
 	<h2 class="form-group-heading">Termination Constraints</h2>
@@ -130,22 +131,22 @@
 
 	<div class="form-group" style="margin-top: 20px;">
 		<label for="defaultError">Default Error Message</label>
-		<input class="form-control" id="defaultError" type="text" name="stdout_parsing[error]" placeholder="Type in error message regex pattern on which algorithm will be terminated">
+		<input class="form-control" id="defaultError" type="text" name="stdoutParsing[errorPattern]" placeholder="Type in error message regex pattern on which algorithm will be terminated">
 	</div>
 
 	<div class="form-group" style="margin-top: 20px;">
 		<label for="defaultTimeout">Default Timeout</label>
-		<input class="form-control" id="defaultTimeout" type="number" min="0" name="timeout" placeholder="Type in time in seconds when an instance of an experiment timed out">
+		<input class="form-control" id="defaultTimeout" type="number" min="0" name="defaultTimeout" placeholder="Type in time in seconds when an instance of an experiment timed out">
 	</div>
 
 	<div class="form-group">	
 		<label for="outputPattern">Status Message Pattern</label>
-		<input class="form-control" id="outputPattern" type="text" name="stdout_parsing[status]" placeholder="Type in status message regex pattern">
+		<input class="form-control" id="outputPattern" type="text" name="stdoutParsing[statusPattern]" placeholder="Type in status message regex pattern">
 	</div>
 
 	<div class="form-group">
 		<label for="maxTimeSinceLastStatusMsg">Status Message dependent Timout</label>
-		<input class="form-control" id="maxTimeSinceLastStatusMsg" type="number" min="0" name="stdout_parsing[max_time_since_last_status]" placeholder="Type in timespan in seconds in which an algorithm has to send defined status message again to be called alive">
+		<input class="form-control" id="maxTimeSinceLastStatusMsg" type="number" min="0" name="stdoutParsing[maxTimeSinceLastStatusMsg]" placeholder="Type in timespan in seconds in which an algorithm has to send defined status message again to be called alive">
 	</div>
 
 	<h3 class="form-group-sub-heading">Performance Constraints</h3>
@@ -153,30 +154,30 @@
 	<div class="row">
 		<div class="col-xs-5">
 			<label for="lossFunctionPattern">Loss Function Pattern</label>
-			<input class="form-control" id="lossFunctionPattern" type="text" name="stdout_parsing[loss_function]" placeholder="Type in loss function regex pattern">
+			<input class="form-control" id="lossFunctionPattern" type="text" name="stdoutParsing[lossPattern]" placeholder="Type in loss function regex pattern">
 		</div>
 		<div class="col-xs-5">
-			<label for="lossFunctionValuePattern">Loss Function Value Pattern</label>
-			<input class="form-control" id="lossFunctionValuePattern" type="text" name="stdout_parsing[loss_function_value]" placeholder="Type in loss function value regex pattern">
+			<label for="lossValuePattern">Loss Function Value Pattern</label>
+			<input class="form-control" id="lossValuePattern" type="text" name="stdoutParsing[lossValuePattern]" placeholder="Type in loss function value regex pattern">
 		</div>
 		<div class="col-xs-2">
 			<label for="minLossFunctionImprovementSinceLastIteration">Improvement Threshhold</label>
-			<input class="form-control" id="minLossFunctionImprovementSinceLastIteration" type="number" min="0" step="0.005" name="stdout_parsing[min_loss_function_improvement]" placeholder="Type in minimal decrease of loss function compared to last iteration">
+			<input class="form-control" id="minLossFunctionImprovementSinceLastIteration" type="number" min="0" step="0.005" name="stdoutParsing[minLossFunctionImprovementSinceLastIteration]" placeholder="Type in minimal decrease of loss function compared to last iteration">
 		</div>
 	</div>
 
 	<div class="row" style="margin-top: 20px;">
 		<div class="col-xs-5">
-			<label for="accuracyFunctionPattern">Accuracy Function Pattern</label>
-			<input class="form-control" id="accuracyFunctionPattern" type="text" name="stdout_parsing[accuracy_function]" placeholder="Type in accuracy function regex pattern">
+			<label for="accuracyPattern">Accuracy Function Pattern</label>
+			<input class="form-control" id="accuracyPattern" type="text" name="stdoutParsing[accuracyPattern]" placeholder="Type in accuracy function regex pattern">
 		</div>
 		<div class="col-xs-5">
-			<label for="accuracyFunctionValuePattern">Accuracy Function Value Pattern</label>
-			<input class="form-control" id="accuracyFunctionValuePattern" type="text" name="stdout_parsing[accuracy_function_value]" placeholder="Type in accuracy function value regex pattern">
+			<label for="accuracyValuePattern">Accuracy Function Value Pattern</label>
+			<input class="form-control" id="accuracyValuePattern" type="text" name="stdoutParsing[accuracyValuePattern]" placeholder="Type in accuracy function value regex pattern">
 		</div>
 		<div class="col-xs-2">
 			<label for="minAccuracyFunctionImprovementSinceLastIteration">Improvement Threshhold</label>
-			<input class="form-control" id="minAccuracyFunctionImprovementSinceLastIteration" type="number" min="0" step="0.005" name="stdout_parsing[min_accuracy_function_improvement]" placeholder="Type in minimal increase of accuracy function compared to last iteration">
+			<input class="form-control" id="minAccuracyFunctionImprovementSinceLastIteration" type="number" min="0" step="0.005" name="stdoutParsing[minAccuracyFunctionImprovementSinceLastIteration]" placeholder="Type in minimal increase of accuracy function compared to last iteration">
 		</div>
 	</div>
 
@@ -201,7 +202,7 @@
 			<div class="col-xs-3">
 				<label>
 					<input type="checkbox" data-toggle="toggle" value=1 name="slack[verbose]">
-					Verbose notification of each run</label>
+					Verbose notification of each run
 				</label>
 			</div>
 		</div>
@@ -222,7 +223,7 @@
 			<div class="col-xs-3">
 				<label>
 					<input type="checkbox" data-toggle="toggle"  value=1  name="telegram[verbose]">
-					Verbose notification of each run</label>
+					Verbose notification of each run
 				</label>
 			</div>
 		</div>
@@ -246,7 +247,7 @@
 
 	<label id="notifiers_fields_button">
 		<input type="checkbox" data-toggle="toggle"  value=1  name="ignore_nofiers">
-		Ignore notifiers</label>
+		Ignore notifiers
 	</label>
 
 	<hr>

@@ -1,6 +1,7 @@
 class Dataset < ApplicationRecord
 
 	attr_accessor :blob
+	attr_accessor :user_file_path
 
 	before_save :save_file
 	before_destroy :remove_file
@@ -9,15 +10,19 @@ class Dataset < ApplicationRecord
 
 	private
 	    def save_file
-			old_file = Rails.root.join('public', 'uploads', 'datasets', self.blob.original_filename)
-			File.delete(old_file) if File.exist?(old_file)
+	    	if self.blob.present?
+				old_file = Rails.root.join('public', 'uploads', 'datasets', self.blob.original_filename)
+				File.delete(old_file) if File.exist?(old_file)
 
-			abs_path = Rails.root.join('public', 'uploads', 'datasets', self.blob.original_filename)
-			File.open(abs_path, 'wb') do |file|
-			  file.write(blob.read)
+				abs_path = Rails.root.join('public', 'uploads', 'datasets', self.blob.original_filename)
+				File.open(abs_path, 'wb') do |file|
+				  file.write(blob.read)
+				end
+
+				self.file_path = abs_path
+			else
+				self.file_path = self.user_file_path
 			end
-
-			self.file_path = abs_path
 	    end
 
 	    def remove_file

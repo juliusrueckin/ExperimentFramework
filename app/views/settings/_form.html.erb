@@ -38,6 +38,11 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <%= form.label :user_file_path, "... or define file path and leave file upload field blank" %>
+    <%= form.text_field :user_file_path, value: @setting.file_path, id: :setting_user_file_path, class: "form-control" %>
+  </div>
+
   <div class="actions">
     <%= form.submit "Save", class:"btn btn-primary" %>
   </div>

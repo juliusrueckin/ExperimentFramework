@@ -40,12 +40,15 @@ class SettingsController < ApplicationController
       general_title = params[:general_title]
       config_filename = params[:config_filename]
 
+      params[:params][params[:params].count] = {"name": "dataset", value: params[:use_dataset]}
+
       params.delete :project_id
       params.delete :description
       params.delete :general_title
       params.delete :config_filename
       params.delete :controller
       params.delete :action
+      params.delete :use_dataset
 
       if params[:ignore_csv_export].present?
         params.delete :csv
@@ -63,7 +66,7 @@ class SettingsController < ApplicationController
       config_file_content = params.to_json
       
       File.open(abs_path, "wb") { |file| file.write config_file_content }
-      @setting = Setting.new(title: general_title, description: description, file_path: abs_path)
+      @setting = Setting.new(title: general_title, description: description, user_file_path: abs_path)
       if @setting.save
         redirect_to @setting, notice: 'Configuration was successfully created.'
       else
@@ -126,6 +129,6 @@ class SettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def setting_params
-      params.require(:setting).permit(:title, :description, :blob)
+      params.require(:setting).permit(:title, :description, :blob, :user_file_path)
     end
 end
