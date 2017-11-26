@@ -39,7 +39,7 @@ class SettingsController < ApplicationController
       description = params[:description]
       general_title = params[:general_title]
       config_filename = params[:config_filename]
-
+      
       params[:params][params[:params].count] = {"name": "dataset", value: params[:use_dataset]}
 
       params.delete :project_id

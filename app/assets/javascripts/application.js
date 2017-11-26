@@ -27,6 +27,8 @@ $(document).ready(function(){
 	addConfigFileCSVOutputsField();
 	setConfigFileDatasets();
 
+	$("#dual-dataset-list").DualListBox();
+
 	$("#startExperimentForm").on("submit", function(e){
 		e.preventDefault();
 		e.stopPropagation();
@@ -214,11 +216,11 @@ function setConfigFileDatasets(){
 
 		$.get("/projects/"+project_id+"/datasets")
 		.done(function(jsonResponse){
-			$("#createConfigForm #dataset_list").html("");
+			$("#createConfigForm #dataset_list").next().find(".unselected").first().html("");
 			for(index = 0; index < jsonResponse.length; index++){
-				old_html = $("#createConfigForm #dataset_list").html();
-				new_html = "<div class='col-xs-12'><label for='use_dataset_"+index+"'><input type='checkbox' id='use_dataset_"+index+"' value='"+jsonResponse[index]["file_path"]+"' name='use_dataset[]'>"+jsonResponse[index]["title"]+"</label></div>";
-				$("#createConfigForm #dataset_list").html(old_html + new_html);
+				old_html = $("#createConfigForm #dataset_list").next().find(".unselected").first().html();
+				new_html = "<option id='use_dataset_"+index+"' value='"+jsonResponse[index]["file_path"]+"'>"+jsonResponse[index]["title"]+"</option>";
+				$("#createConfigForm #dataset_list").next().find(".unselected").first().html(old_html + new_html);
 			};
 		});
 	});
