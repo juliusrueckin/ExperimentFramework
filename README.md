@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # README
 
 This README would normally document whatever steps are necessary to get the
@@ -22,3 +23,6 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+=======
+# ExperimentFrameworkBackend-2.0
+>>>>>>> d02959e2ba723c3bdcd476e27e572cf22db3ae17

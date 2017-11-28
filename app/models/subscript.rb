@@ -13,57 +13,14 @@ class Subscript < ApplicationRecord
 	has_many :parent_scripts, through: :child_script_dependencies
 	has_many :child_scripts, through: :parent_script_dependencies
 
-	enum status: [ :failed, :running, :finished, :waiting]
-
-	def executable?
-		return !self.child_scripts.map(&:finished?).include?(false)
-	end
-
-	def waitingForDependencies?
-		return self.child_scripts.map(&:finished?).include? false
-	end
-
-	def cannotBeExecuted?
-		return self.child_scripts.map(&:failed?).include? true
-	end
-
-	def stillExecutable?
-		return !self.child_scripts.map(&:failed?).include?(true)
-	end
-
-	def amountOfPendingInputDependenices
-		return self.child_scripts.map { |script| script.running? or script.waiting? }.count true
-	end
-
-	def amountOfRunningInputDependenices
-		return self.child_scripts.map(&:running?).count true
-	end
-
-	def amountOfFailedInputDependenices
-		return self.child_scripts.map(&:failed?).count true
-	end
-
-	def amountOfInputDependencies
-		return self.parent_scripts.count
-	end
-
-	def amountOfOutputDependencies
-		self.child_scripts.count
-	end
-
-	def pruneChildDependencyTree
-		self.algorithm.pruneDependencyTree(self)
-	end
+	has_many :subscript_instances
 
 	def buildJSONNode
-		return {id: self.id, name: self.title, status: self.status}
+		return {id: self.id, name: self.title}
 	end
 
 	private
-	    def save_file
-	    	#set default status to 'waiting' if no status is defined
-	    	self.status ||= "waiting"
-	    	
+	    def save_file   	
 	    	#if no file given return without saving
 	    	return if self.blob.blank?
 

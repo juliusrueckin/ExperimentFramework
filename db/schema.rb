@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170911225827) do
+ActiveRecord::Schema.define(version: 20171126152750) do
 
   create_table "algorithms", force: :cascade do |t|
     t.string "title"
@@ -82,6 +82,14 @@ ActiveRecord::Schema.define(version: 20170911225827) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "subscript_instances", force: :cascade do |t|
+    t.integer "subscript_id"
+    t.integer "status"
+    t.integer "progress"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "subscripts", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -91,7 +99,6 @@ ActiveRecord::Schema.define(version: 20170911225827) do
     t.integer "algorithm_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status"
   end
 
 end

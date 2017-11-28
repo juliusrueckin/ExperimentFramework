@@ -14,8 +14,8 @@
 
 <p>
   <form id="startExperimentForm" action="http://127.0.0.1:8080/start_experiment" method="post" enctype="application/json">
-    <input type="hidden" name="configFilePath" value="<%= @experiment.setting.file_path %>" />
-
+    <input type="hidden" name="configFilePath" value="<%= @experiment.setting.file_path %>">
+    <input type="hidden" name="experimentId" value="<%= @experiment.id %>">
     <button type="submit" class="btn btn-primary">
       <span class="glyphicon glyphicon-play icon-spacer"></span>
       Start Experiment
