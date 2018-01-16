@@ -8,13 +8,12 @@ RUN apt-get update \
 
 # create and change to  working directory
 WORKDIR /usr/src/app
-COPY Gemfile /usr/src/app
-
-# install gems from Gemfile
-RUN bundle install
 
 # clone application from github
 RUN git clone https://github.com/juliusrueckin/ExperimentFramework.git .
+
+# install gems from Gemfile
+RUN bundle install
 
 # open port 300 for rails server
 EXPOSE 3000
